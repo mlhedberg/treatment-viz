@@ -4,16 +4,38 @@
 
 .link {
     fill: none;
+    stroke: #999;
+    stroke-width: .5px;
+    stroke-opacity: .3;
+}
+
+.axis {
+    stroke: #000;
     stroke-width: 1.5px;
 }
 
-    .axis, .node {
-        stroke: #000;
-        stroke-width: 1.5px;
-    }
+circle {
+  stroke: black;
+  stroke-width: .5px;
+  fill-opacity: .5;
+}
+
+.link.active {
+  stroke: red;
+  stroke-width: 2px;
+  stroke-opacity: 1;
+}
+
+circle.active {
+  fill-opacity: 1;
+  stroke: red;
+  stroke-width: 3px;
+}
 
 </style>
 <body>
+    <p id="info">Loading… </p>
+    <div id="viz"> </div>
     <script src="//d3js.org/d3.v3.min.js"></script>
     <script src="d3.hive.min.js"></script>
     <script>
@@ -23,4879 +45,7010 @@ var width = 960,
     innerRadius = 40,
     outerRadius = 240;
 
-var angle = d3.scale.ordinal().domain(d3.range(4)).rangePoints([0, 2 * Math.PI]),
+var angle = d3.scale.ordinal().domain(d3.range(4)).rangePoints([-2/3 * Math.PI, 4/3 * Math.PI]),
     radius = d3.scale.linear().domain([1246000000,1450000000]).range([innerRadius, outerRadius]),
-    color = d3.scale.category10().domain(d3.range(20));
+    color = d3.scale.category10();
+
+
+var formatNumber = d3.format(",d")
 
 
 //The x corresponds to both color AND which axis it will be on in this example
 var nodes = [
   {
-    x: 1,
-    y: 1385942400
+    "x": 1,
+    "y": 1385942400,
+    "node_names": "a9913g"
   },
   {
-    x: 1,
-    y: 1320019200
+    "x": 1,
+    "y": 1320019200,
+    "node_names": "a6230g"
   },
   {
-    x: 1,
-    y: 1416268800
+    "x": 1,
+    "y": 1416268800,
+    "node_names": "a6230g"
   },
   {
-    x: 1,
-    y: 1385942400
+    "x": 1,
+    "y": 1385942400,
+    "node_names": "a9913g"
   },
   {
-    x: 1,
-    y: 1376265600
+    "x": 1,
+    "y": 1376265600,
+    "node_names": "j8916h"
   },
   {
-    x: 1,
-    y: 1409875200
+    "x": 1,
+    "y": 1409875200,
+    "node_names": "j8916h"
   },
   {
-    x: 1,
-    y: 1420156800
+    "x": 1,
+    "y": 1420156800,
+    "node_names": "j8916h"
   },
   {
-    x: 1,
-    y: 1384214400
+    "x": 1,
+    "y": 1384214400,
+    "node_names": "a9913g"
   },
   {
-    x: 1,
-    y: 1414454400
+    "x": 1,
+    "y": 1414454400,
+    "node_names": "a9913g"
   },
   {
-    x: 1,
-    y: 1430179200
+    "x": 1,
+    "y": 1430179200,
+    "node_names": "j8916h"
   },
   {
-    x: 1,
-    y: 1444348800
+    "x": 1,
+    "y": 1444348800,
+    "node_names": "a6230g"
   },
   {
-    x: 1,
-    y: 1428537600
+    "x": 1,
+    "y": 1428537600,
+    "node_names": "s9417f"
   },
   {
-    x: 1,
-    y: 1414454400
+    "x": 1,
+    "y": 1414454400,
+    "node_names": "a9913g"
   },
   {
-    x: 1,
-    y: 1334102400
+    "x": 1,
+    "y": 1334102400,
+    "node_names": "d4170t"
   },
   {
-    x: 1,
-    y: 1388016000
+    "x": 1,
+    "y": 1388016000,
+    "node_names": "j8916h"
   },
   {
-    x: 1,
-    y: 1323302400
+    "x": 1,
+    "y": 1323302400,
+    "node_names": "t6780o"
   },
   {
-    x: 1,
-    y: 1381190400
+    "x": 1,
+    "y": 1381190400,
+    "node_names": "l2680i"
   },
   {
-    x: 1,
-    y: 1435795200
+    "x": 1,
+    "y": 1435795200,
+    "node_names": "j8916h"
   },
   {
-    x: 1,
-    y: 1442361600
+    "x": 1,
+    "y": 1442361600,
+    "node_names": "t9815h"
   },
   {
-    x: 1,
-    y: 1343174400
+    "x": 1,
+    "y": 1343174400,
+    "node_names": "t8292i"
   },
   {
-    x: 1,
-    y: 1357776000
+    "x": 1,
+    "y": 1357776000,
+    "node_names": "t6780o"
   },
   {
-    x: 1,
-    y: 1384214400
+    "x": 1,
+    "y": 1384214400,
+    "node_names": "a9913g"
   },
   {
-    x: 1,
-    y: 1425254400
+    "x": 1,
+    "y": 1425254400,
+    "node_names": "s4096r"
   },
   {
-    x: 1,
-    y: 1415577600
+    "x": 1,
+    "y": 1415577600,
+    "node_names": "l2680i"
   },
   {
-    x: 1,
-    y: 1436486400
+    "x": 1,
+    "y": 1436486400,
+    "node_names": "l2680i"
   },
   {
-    x: 1,
-    y: 1392854400
+    "x": 1,
+    "y": 1392854400,
+    "node_names": "s9417f"
   },
   {
-    x: 1,
-    y: 1403827200
+    "x": 1,
+    "y": 1403827200,
+    "node_names": "t9815h"
   },
   {
-    x: 1,
-    y: 1440720000
+    "x": 1,
+    "y": 1440720000,
+    "node_names": "n7621g"
   },
   {
-    x: 1,
-    y: 1373414400
+    "x": 1,
+    "y": 1373414400,
+    "node_names": "w5950u"
   },
   {
-    x: 1,
-    y: 1361232000
+    "x": 1,
+    "y": 1361232000,
+    "node_names": "i2723u"
   },
   {
-    x: 1,
-    y: 1400630400
+    "x": 1,
+    "y": 1400630400,
+    "node_names": "y2942r"
   },
   {
-    x: 1,
-    y: 1365984000
+    "x": 1,
+    "y": 1365984000,
+    "node_names": "w5950u"
   },
   {
-    x: 1,
-    y: 1378252800
+    "x": 1,
+    "y": 1378252800,
+    "node_names": "t6780o"
   },
   {
-    x: 1,
-    y: 1438041600
+    "x": 1,
+    "y": 1438041600,
+    "node_names": "w5950u"
   },
   {
-    x: 1,
-    y: 1367452800
+    "x": 1,
+    "y": 1367452800,
+    "node_names": "s9417f"
   },
   {
-    x: 1,
-    y: 1401840000
+    "x": 1,
+    "y": 1401840000,
+    "node_names": "t9815h"
   },
   {
-    x: 1,
-    y: 1376524800
+    "x": 1,
+    "y": 1376524800,
+    "node_names": "s9417f"
   },
   {
-    x: 1,
-    y: 1248048000
+    "x": 1,
+    "y": 1248048000,
+    "node_names": "s4096r"
   },
   {
-    x: 1,
-    y: 1425427200
+    "x": 1,
+    "y": 1425427200,
+    "node_names": "n7621g"
   },
   {
-    x: 1,
-    y: 1404950400
+    "x": 1,
+    "y": 1404950400,
+    "node_names": "n7621g"
   },
   {
-    x: 1,
-    y: 1426118400
+    "x": 1,
+    "y": 1426118400,
+    "node_names": "g3574k"
   },
   {
-    x: 1,
-    y: 1347926400
+    "x": 1,
+    "y": 1347926400,
+    "node_names": "g3574k"
   },
   {
-    x: 1,
-    y: 1397520000
+    "x": 1,
+    "y": 1397520000,
+    "node_names": "s3521i"
   },
   {
-    x: 1,
-    y: 1409875200
+    "x": 1,
+    "y": 1409875200,
+    "node_names": "s3521i"
   },
   {
-    x: 1,
-    y: 1393891200
+    "x": 1,
+    "y": 1393891200,
+    "node_names": "s3521i"
   },
   {
-    x: 1,
-    y: 1438214400
+    "x": 1,
+    "y": 1438214400,
+    "node_names": "r4355j"
   },
   {
-    x: 1,
-    y: 1335139200
+    "x": 1,
+    "y": 1335139200,
+    "node_names": "r4355j"
   },
   {
-    x: 1,
-    y: 1408665600
+    "x": 1,
+    "y": 1408665600,
+    "node_names": "w3752a"
   },
   {
-    x: 1,
-    y: 1411689600
+    "x": 1,
+    "y": 1411689600,
+    "node_names": "m2177s"
   },
   {
-    x: 1,
-    y: 1387411200
+    "x": 1,
+    "y": 1387411200,
+    "node_names": "s3521i"
   },
   {
-    x: 1,
-    y: 1428278400
+    "x": 1,
+    "y": 1428278400,
+    "node_names": "w3752a"
   },
   {
-    x: 1,
-    y: 1338595200
+    "x": 1,
+    "y": 1338595200,
+    "node_names": "m2177s"
   },
   {
-    x: 1,
-    y: 1443052800
+    "x": 1,
+    "y": 1443052800,
+    "node_names": "w3752a"
   },
   {
-    x: 1,
-    y: 1335916800
+    "x": 1,
+    "y": 1335916800,
+    "node_names": "g3574k"
   },
   {
-    x: 1,
-    y: 1405987200
+    "x": 1,
+    "y": 1405987200,
+    "node_names": "n8228o"
   },
   {
-    x: 1,
-    y: 1401753600
+    "x": 1,
+    "y": 1401753600,
+    "node_names": "g8081s"
   },
   {
-    x: 1,
-    y: 1317254400
+    "x": 1,
+    "y": 1317254400,
+    "node_names": "g8081s"
   },
   {
-    x: 1,
-    y: 1432771200
+    "x": 1,
+    "y": 1432771200,
+    "node_names": "j5727w"
   },
   {
-    x: 1,
-    y: 1423440000
+    "x": 1,
+    "y": 1423440000,
+    "node_names": "g8081s"
   },
   {
-    x: 1,
-    y: 1380499200
+    "x": 1,
+    "y": 1380499200,
+    "node_names": "s3521i"
   },
   {
-    x: 1,
-    y: 1341964800
+    "x": 1,
+    "y": 1341964800,
+    "node_names": "s3521i"
   },
   {
-    x: 1,
-    y: 1355788800
+    "x": 1,
+    "y": 1355788800,
+    "node_names": "g8081s"
   },
   {
-    x: 1,
-    y: 1324252800
+    "x": 1,
+    "y": 1324252800,
+    "node_names": "w3752a"
   },
   {
-    x: 1,
-    y: 1325808000
+    "x": 1,
+    "y": 1325808000,
+    "node_names": "t8223p"
   },
   {
-    x: 1,
-    y: 1406851200
+    "x": 1,
+    "y": 1406851200,
+    "node_names": "t8223p"
   },
   {
-    x: 1,
-    y: 1410825600
+    "x": 1,
+    "y": 1410825600,
+    "node_names": "m2177s"
   },
   {
-    x: 1,
-    y: 1394668800
+    "x": 1,
+    "y": 1394668800,
+    "node_names": "t8223p"
   },
   {
-    x: 1,
-    y: 1390867200
+    "x": 1,
+    "y": 1390867200,
+    "node_names": "p9302d"
   },
   {
-    x: 1,
-    y: 1432771200
+    "x": 1,
+    "y": 1432771200,
+    "node_names": "f3078p"
   },
   {
-    x: 1,
-    y: 1410739200
+    "x": 1,
+    "y": 1410739200,
+    "node_names": "z7390g"
   },
   {
-    x: 1,
-    y: 1416873600
+    "x": 1,
+    "y": 1416873600,
+    "node_names": "a6991u"
   },
   {
-    x: 1,
-    y: 1444003200
+    "x": 1,
+    "y": 1444003200,
+    "node_names": "d2518r"
   },
   {
-    x: 1,
-    y: 1408406400
+    "x": 1,
+    "y": 1408406400,
+    "node_names": "t9509b"
   },
   {
-    x: 1,
-    y: 1354665600
+    "x": 1,
+    "y": 1354665600,
+    "node_names": "e6994f"
   },
   {
-    x: 1,
-    y: 1359417600
+    "x": 1,
+    "y": 1359417600,
+    "node_names": "d2518r"
   },
   {
-    x: 1,
-    y: 1424649600
+    "x": 1,
+    "y": 1424649600,
+    "node_names": "e6994f"
   },
   {
-    x: 1,
-    y: 1407456000
+    "x": 1,
+    "y": 1407456000,
+    "node_names": "h8801t"
   },
   {
-    x: 1,
-    y: 1446595200
+    "x": 1,
+    "y": 1446595200,
+    "node_names": "b7786f"
   },
   {
-    x: 1,
-    y: 1435881600
+    "x": 1,
+    "y": 1435881600,
+    "node_names": "d2518r"
   },
   {
-    x: 1,
-    y: 1425340800
+    "x": 1,
+    "y": 1425340800,
+    "node_names": "e6994f"
   },
   {
-    x: 1,
-    y: 1441929600
+    "x": 1,
+    "y": 1441929600,
+    "node_names": "y7132e"
   },
   {
-    x: 1,
-    y: 1385510400
+    "x": 1,
+    "y": 1385510400,
+    "node_names": "e6994f"
   },
   {
-    x: 1,
-    y: 1391990400
+    "x": 1,
+    "y": 1391990400,
+    "node_names": "g3064e"
   },
   {
-    x: 1,
-    y: 1388016000
+    "x": 1,
+    "y": 1388016000,
+    "node_names": "h8801t"
   },
   {
-    x: 1,
-    y: 1368144000
+    "x": 1,
+    "y": 1368144000,
+    "node_names": "b7786f"
   },
   {
-    x: 1,
-    y: 1412035200
+    "x": 1,
+    "y": 1412035200,
+    "node_names": "b7786f"
   },
   {
-    x: 1,
-    y: 1409270400
+    "x": 1,
+    "y": 1409270400,
+    "node_names": "e6994f"
   },
   {
-    x: 1,
-    y: 1373414400
+    "x": 1,
+    "y": 1373414400,
+    "node_names": "w7942e"
   },
   {
-    x: 1,
-    y: 1320796800
+    "x": 1,
+    "y": 1320796800,
+    "node_names": "h8801t"
   },
   {
-    x: 1,
-    y: 1328572800
+    "x": 1,
+    "y": 1328572800,
+    "node_names": "o5515x"
   },
   {
-    x: 1,
-    y: 1370304000
+    "x": 1,
+    "y": 1370304000,
+    "node_names": "o5515x"
   },
   {
-    x: 1,
-    y: 1443657600
+    "x": 1,
+    "y": 1443657600,
+    "node_names": "t9509b"
   },
   {
-    x: 1,
-    y: 1292803200
+    "x": 1,
+    "y": 1292803200,
+    "node_names": "w7942e"
   },
   {
-    x: 1,
-    y: 1339372800
+    "x": 1,
+    "y": 1339372800,
+    "node_names": "g3064e"
   },
   {
-    x: 1,
-    y: 1421020800
+    "x": 1,
+    "y": 1421020800,
+    "node_names": "y7132e"
   },
   {
-    x: 1,
-    y: 1349136000
+    "x": 1,
+    "y": 1349136000,
+    "node_names": "t9509b"
   },
   {
-    x: 1,
-    y: 1384560000
+    "x": 1,
+    "y": 1384560000,
+    "node_names": "r7063r"
   },
   {
-    x: 1,
-    y: 1421712000
+    "x": 1,
+    "y": 1421712000,
+    "node_names": "e6994f"
   },
   {
-    x: 1,
-    y: 1403740800
+    "x": 1,
+    "y": 1403740800,
+    "node_names": "e6994f"
   },
   {
-    x: 1,
-    y: 1401667200
+    "x": 1,
+    "y": 1401667200,
+    "node_names": "t9509b"
   },
   {
-    x: 1,
-    y: 1373328000
+    "x": 1,
+    "y": 1373328000,
+    "node_names": "b7786f"
   },
   {
-    x: 1,
-    y: 1441670400
+    "x": 1,
+    "y": 1441670400,
+    "node_names": "h8801t"
   },
   {
-    x: 1,
-    y: 1405641600
+    "x": 1,
+    "y": 1405641600,
+    "node_names": "w7942e"
   },
   {
-    x: 1,
-    y: 1363651200
+    "x": 1,
+    "y": 1363651200,
+    "node_names": "h8801t"
   },
   {
-    x: 1,
-    y: 1436313600
+    "x": 1,
+    "y": 1436313600,
+    "node_names": "j7804r"
   },
   {
-    x: 1,
-    y: 1335139200
+    "x": 1,
+    "y": 1335139200,
+    "node_names": "j7804r"
   },
   {
-    x: 1,
-    y: 1427760000
+    "x": 1,
+    "y": 1427760000,
+    "node_names": "y7132e"
   },
   {
-    x: 1,
-    y: 1437609600
+    "x": 1,
+    "y": 1437609600,
+    "node_names": "g3064e"
   },
   {
-    x: 1,
-    y: 1358726400
+    "x": 1,
+    "y": 1358726400,
+    "node_names": "t9509b"
   },
   {
-    x: 1,
-    y: 1434672000
+    "x": 1,
+    "y": 1434672000,
+    "node_names": "e6994f"
   },
   {
-    x: 1,
-    y: 1392768000
+    "x": 1,
+    "y": 1392768000,
+    "node_names": "e6994f"
   },
   {
-    x: 1,
-    y: 1374710400
+    "x": 1,
+    "y": 1374710400,
+    "node_names": "j7804r"
   },
   {
-    x: 1,
-    y: 1374451200
+    "x": 1,
+    "y": 1374451200,
+    "node_names": "g3064e"
   },
   {
-    x: 1,
-    y: 1404172800
+    "x": 1,
+    "y": 1404172800,
+    "node_names": "y7132e"
   },
   {
-    x: 1,
-    y: 1313452800
+    "x": 1,
+    "y": 1313452800,
+    "node_names": "b7786f"
   },
   {
-    x: 1,
-    y: 1367280000
+    "x": 1,
+    "y": 1367280000,
+    "node_names": "y4215o"
   },
   {
-    x: 1,
-    y: 1435708800
+    "x": 1,
+    "y": 1435708800,
+    "node_names": "u5435d"
   },
   {
-    x: 1,
-    y: 1385942400
+    "x": 1,
+    "y": 1385942400,
+    "node_names": "y4215o"
   },
   {
-    x: 1,
-    y: 1389916800
+    "x": 1,
+    "y": 1389916800,
+    "node_names": "u5435d"
   },
   {
-    x: 1,
-    y: 1437004800
+    "x": 1,
+    "y": 1437004800,
+    "node_names": "u5435d"
   },
   {
-    x: 1,
-    y: 1372032000
+    "x": 1,
+    "y": 1372032000,
+    "node_names": "g5736q"
   },
   {
-    x: 1,
-    y: 1396742400
+    "x": 1,
+    "y": 1396742400,
+    "node_names": "a7481m"
   },
   {
-    x: 1,
-    y: 1414540800
+    "x": 1,
+    "y": 1414540800,
+    "node_names": "u5435d"
   },
   {
-    x: 1,
-    y: 1446422400
+    "x": 1,
+    "y": 1446422400,
+    "node_names": "b8717j"
   },
   {
-    x: 1,
-    y: 1427068800
+    "x": 1,
+    "y": 1427068800,
+    "node_names": "n9925d"
   },
   {
-    x: 1,
-    y: 1367193600
+    "x": 1,
+    "y": 1367193600,
+    "node_names": "g3471j"
   },
   {
-    x: 1,
-    y: 1373500800
+    "x": 1,
+    "y": 1373500800,
+    "node_names": "n9925d"
   },
   {
-    x: 1,
-    y: 1397520000
+    "x": 1,
+    "y": 1397520000,
+    "node_names": "n9925d"
   },
   {
-    x: 1,
-    y: 1437004800
+    "x": 1,
+    "y": 1437004800,
+    "node_names": "g3471j"
   },
   {
-    x: 1,
-    y: 1356998400
+    "x": 1,
+    "y": 1356998400,
+    "node_names": "g3471j"
   },
   {
-    x: 1,
-    y: 1399593600
+    "x": 1,
+    "y": 1399593600,
+    "node_names": "e6354h"
   },
   {
-    x: 1,
-    y: 1437696000
+    "x": 1,
+    "y": 1437696000,
+    "node_names": "e6354h"
   },
   {
-    x: 1,
-    y: 1436140800
+    "x": 1,
+    "y": 1436140800,
+    "node_names": "o6770p"
   },
   {
-    x: 1,
-    y: 1445472000
+    "x": 1,
+    "y": 1445472000,
+    "node_names": "e2667q"
   },
   {
-    x: 1,
-    y: 1393459200
+    "x": 1,
+    "y": 1393459200,
+    "node_names": "d7586h"
   },
   {
-    x: 1,
-    y: 1446768000
+    "x": 1,
+    "y": 1446768000,
+    "node_names": "d7586h"
   },
   {
-    x: 1,
-    y: 1365552000
+    "x": 1,
+    "y": 1365552000,
+    "node_names": "e2667q"
   },
   {
-    x: 1,
-    y: 1398643200
+    "x": 1,
+    "y": 1398643200,
+    "node_names": "e2667q"
   },
   {
-    x: 1,
-    y: 1294704000
+    "x": 1,
+    "y": 1294704000,
+    "node_names": "h8214l"
   },
   {
-    x: 1,
-    y: 1392163200
+    "x": 1,
+    "y": 1392163200,
+    "node_names": "d7586h"
   },
   {
-    x: 1,
-    y: 1434931200
+    "x": 1,
+    "y": 1434931200,
+    "node_names": "5402v"
   },
   {
-    x: 1,
-    y: 1421712000
+    "x": 1,
+    "y": 1421712000,
+    "node_names": "5402v"
   },
   {
-    x: 1,
-    y: 1391040000
+    "x": 1,
+    "y": 1391040000,
+    "node_names": "a3169y"
   },
   {
-    x: 1,
-    y: 1378857600
+    "x": 1,
+    "y": 1378857600,
+    "node_names": "a3169y"
   },
   {
-    x: 1,
-    y: 1339632000
+    "x": 1,
+    "y": 1339632000,
+    "node_names": "a3169y"
   },
   {
-    x: 1,
-    y: 1404691200
+    "x": 1,
+    "y": 1404691200,
+    "node_names": "a3169y"
   },
   {
-    x: 1,
-    y: 1421884800
+    "x": 1,
+    "y": 1421884800,
+    "node_names": "c5562s"
   },
   {
-    x: 1,
-    y: 1368835200
+    "x": 1,
+    "y": 1368835200,
+    "node_names": "e8039w"
   },
   {
-    x: 1,
-    y: 1433203200
+    "x": 1,
+    "y": 1433203200,
+    "node_names": "d9301s"
   },
   {
-    x: 1,
-    y: 1413936000
+    "x": 1,
+    "y": 1413936000,
+    "node_names": "d9301s"
   },
   {
-    x: 1,
-    y: 1391731200
+    "x": 1,
+    "y": 1391731200,
+    "node_names": "d9301s"
   },
   {
-    x: 1,
-    y: 1358985600
+    "x": 1,
+    "y": 1358985600,
+    "node_names": "d9750n"
   },
   {
-    x: 1,
-    y: 1430697600
+    "x": 1,
+    "y": 1430697600,
+    "node_names": "d9750n"
   },
   {
-    x: 1,
-    y: 1421625600
+    "x": 1,
+    "y": 1421625600,
+    "node_names": "d9750n"
   },
   {
-    x: 1,
-    y: 1407024000
+    "x": 1,
+    "y": 1407024000,
+    "node_names": "d9750n"
   },
   {
-    x: 1,
-    y: 1407283200
+    "x": 1,
+    "y": 1407283200,
+    "node_names": "d9750n"
   },
   {
-    x: 1,
-    y: 1402531200
+    "x": 1,
+    "y": 1402531200,
+    "node_names": "k3464g"
   },
   {
-    x: 1,
-    y: 1398816000
+    "x": 1,
+    "y": 1398816000,
+    "node_names": "e8039w"
   },
   {
-    x: 1,
-    y: 1444348800
+    "x": 1,
+    "y": 1444348800,
+    "node_names": "e8039w"
   },
   {
-    x: 1,
-    y: 1410825600
+    "x": 1,
+    "y": 1410825600,
+    "node_names": "e8039w"
   },
   {
-    x: 1,
-    y: 1434931200
+    "x": 1,
+    "y": 1434931200,
+    "node_names": "c5562s"
   },
   {
-    x: 1,
-    y: 1434931200
+    "x": 1,
+    "y": 1434931200,
+    "node_names": "c5562s"
   },
   {
-    x: 1,
-    y: 1415145600
+    "x": 1,
+    "y": 1415145600,
+    "node_names": "c5562s"
   },
   {
-    x: 1,
-    y: 1415145600
+    "x": 1,
+    "y": 1415145600,
+    "node_names": "c5562s"
   },
   {
-    x: 1,
-    y: 1446595200
+    "x": 1,
+    "y": 1446595200,
+    "node_names": "c5562s"
   },
   {
-    x: 1,
-    y: 1446595200
+    "x": 1,
+    "y": 1446595200,
+    "node_names": "c5562s"
   },
   {
-    x: 1,
-    y: 1417737600
+    "x": 1,
+    "y": 1417737600,
+    "node_names": "5402v"
   },
   {
-    x: 1,
-    y: 1344988800
+    "x": 1,
+    "y": 1344988800,
+    "node_names": "c5562s"
   },
   {
-    x: 1,
-    y: 1379289600
+    "x": 1,
+    "y": 1379289600,
+    "node_names": "c5562s"
   },
   {
-    x: 1,
-    y: 1379289600
+    "x": 1,
+    "y": 1379289600,
+    "node_names": "c5562s"
   },
   {
-    x: 1,
-    y: 1364428800
+    "x": 1,
+    "y": 1364428800,
+    "node_names": "c5562s"
   },
   {
-    x: 1,
-    y: 1432080000
+    "x": 1,
+    "y": 1432080000,
+    "node_names": "c5562s"
   },
   {
-    x: 1,
-    y: 1432080000
+    "x": 1,
+    "y": 1432080000,
+    "node_names": "c5562s"
   },
   {
-    x: 1,
-    y: 1375228800
+    "x": 1,
+    "y": 1375228800,
+    "node_names": "e3260h"
   },
   {
-    x: 1,
-    y: 1414713600
+    "x": 1,
+    "y": 1414713600,
+    "node_names": "e3260h"
   },
   {
-    x: 1,
-    y: 1418688000
+    "x": 1,
+    "y": 1418688000,
+    "node_names": "f2855t"
   },
   {
-    x: 1,
-    y: 1421884800
+    "x": 1,
+    "y": 1421884800,
+    "node_names": "w2379e"
   },
   {
-    x: 1,
-    y: 1353369600
+    "x": 1,
+    "y": 1353369600,
+    "node_names": "n6791l"
   },
   {
-    x: 1,
-    y: 1370304000
+    "x": 1,
+    "y": 1370304000,
+    "node_names": "n6791l"
   },
   {
-    x: 1,
-    y: 1372377600
+    "x": 1,
+    "y": 1372377600,
+    "node_names": "g4372m"
   },
   {
-    x: 1,
-    y: 1344988800
+    "x": 1,
+    "y": 1344988800,
+    "node_names": "c5562s"
   },
   {
-    x: 1,
-    y: 1421884800
+    "x": 1,
+    "y": 1421884800,
+    "node_names": "c5562s"
   },
   {
-    x: 1,
-    y: 1427932800
+    "x": 1,
+    "y": 1427932800,
+    "node_names": "g4372m"
   },
   {
-    x: 1,
-    y: 1364428800
+    "x": 1,
+    "y": 1364428800,
+    "node_names": "c5562s"
   },
   {
-    x: 1,
-    y: 1387411200
+    "x": 1,
+    "y": 1387411200,
+    "node_names": "w2379e"
   },
   {
-    x: 1,
-    y: 1426550400
+    "x": 1,
+    "y": 1426550400,
+    "node_names": "g4372m"
   },
   {
-    x: 1,
-    y: 1381190400
+    "x": 1,
+    "y": 1381190400,
+    "node_names": "e3260h"
   },
   {
-    x: 1,
-    y: 1426723200
+    "x": 1,
+    "y": 1426723200,
+    "node_names": "g4372m"
   },
   {
-    x: 1,
-    y: 1340236800
+    "x": 1,
+    "y": 1340236800,
+    "node_names": "w2379e"
   },
   {
-    x: 1,
-    y: 1431907200
+    "x": 1,
+    "y": 1431907200,
+    "node_names": "b9305v"
   },
   {
-    x: 1,
-    y: 1445472000
+    "x": 1,
+    "y": 1445472000,
+    "node_names": "b9305v"
   },
   {
-    x: 1,
-    y: 1389657600
+    "x": 1,
+    "y": 1389657600,
+    "node_names": "b9305v"
   },
   {
-    x: 1,
-    y: 1376524800
+    "x": 1,
+    "y": 1376524800,
+    "node_names": "e6934t"
   },
   {
-    x: 1,
-    y: 1365984000
+    "x": 1,
+    "y": 1365984000,
+    "node_names": "m3086o"
   },
   {
-    x: 1,
-    y: 1394582400
+    "x": 1,
+    "y": 1394582400,
+    "node_names": "e6934t"
   },
   {
-    x: 1,
-    y: 1387238400
+    "x": 1,
+    "y": 1387238400,
+    "node_names": "e7574j"
   },
   {
-    x: 1,
-    y: 1371600000
+    "x": 1,
+    "y": 1371600000,
+    "node_names": "e7574j"
   },
   {
-    x: 1,
-    y: 1407715200
+    "x": 1,
+    "y": 1407715200,
+    "node_names": "f3783s"
   },
   {
-    x: 1,
-    y: 1418688000
+    "x": 1,
+    "y": 1418688000,
+    "node_names": "o5112h"
   },
   {
-    x: 1,
-    y: 1444003200
+    "x": 1,
+    "y": 1444003200,
+    "node_names": "e6934t"
   },
   {
-    x: 1,
-    y: 1401840000
+    "x": 1,
+    "y": 1401840000,
+    "node_names": "j3161r"
   },
   {
-    x: 1,
-    y: 1446336000
+    "x": 1,
+    "y": 1446336000,
+    "node_names": "e7574j"
   },
   {
-    x: 1,
-    y: 1396483200
+    "x": 1,
+    "y": 1396483200,
+    "node_names": "f6029y"
   },
   {
-    x: 1,
-    y: 1400457600
+    "x": 1,
+    "y": 1400457600,
+    "node_names": "f6029y"
   },
   {
-    x: 1,
-    y: 1400716800
+    "x": 1,
+    "y": 1400716800,
+    "node_names": "f3783s"
   },
   {
-    x: 1,
-    y: 1417737600
+    "x": 1,
+    "y": 1417737600,
+    "node_names": "e6934t"
   },
   {
-    x: 1,
-    y: 1362441600
+    "x": 1,
+    "y": 1362441600,
+    "node_names": "o5112h"
   },
   {
-    x: 1,
-    y: 1284076800
+    "x": 1,
+    "y": 1284076800,
+    "node_names": "b4407n"
   },
   {
-    x: 1,
-    y: 1400544000
+    "x": 1,
+    "y": 1400544000,
+    "node_names": "f6029y"
   },
   {
-    x: 1,
-    y: 1392681600
+    "x": 1,
+    "y": 1392681600,
+    "node_names": "o5112h"
   },
   {
-    x: 1,
-    y: 1349395200
+    "x": 1,
+    "y": 1349395200,
+    "node_names": "o5112h"
   },
   {
-    x: 1,
-    y: 1424131200
+    "x": 1,
+    "y": 1424131200,
+    "node_names": "o5112h"
   },
   {
-    x: 1,
-    y: 1373932800
+    "x": 1,
+    "y": 1373932800,
+    "node_names": "m3086o"
   },
   {
-    x: 1,
-    y: 1322006400
+    "x": 1,
+    "y": 1322006400,
+    "node_names": "j3161r"
   },
   {
-    x: 1,
-    y: 1394668800
+    "x": 1,
+    "y": 1394668800,
+    "node_names": "m6462t"
   },
   {
-    x: 1,
-    y: 1368489600
+    "x": 1,
+    "y": 1368489600,
+    "node_names": "h6689r"
   },
   {
-    x: 1,
-    y: 1413936000
+    "x": 1,
+    "y": 1413936000,
+    "node_names": "o5112h"
   },
   {
-    x: 1,
-    y: 1372377600
+    "x": 1,
+    "y": 1372377600,
+    "node_names": "e6934t"
   },
   {
-    x: 1,
-    y: 1443398400
+    "x": 1,
+    "y": 1443398400,
+    "node_names": "j3161r"
   },
   {
-    x: 1,
-    y: 1373932800
+    "x": 1,
+    "y": 1373932800,
+    "node_names": "m3086o"
   },
   {
-    x: 1,
-    y: 1389830400
+    "x": 1,
+    "y": 1389830400,
+    "node_names": "m6462t"
   },
   {
-    x: 1,
-    y: 1377734400
+    "x": 1,
+    "y": 1377734400,
+    "node_names": "y2673w"
   },
   {
-    x: 1,
-    y: 1436227200
+    "x": 1,
+    "y": 1436227200,
+    "node_names": "b3888w"
   },
   {
-    x: 1,
-    y: 1423785600
+    "x": 1,
+    "y": 1423785600,
+    "node_names": "y2673w"
   },
   {
-    x: 1,
-    y: 1359331200
+    "x": 1,
+    "y": 1359331200,
+    "node_names": "a8749y"
   },
   {
-    x: 1,
-    y: 1428019200
+    "x": 1,
+    "y": 1428019200,
+    "node_names": "y2673w"
   },
   {
-    x: 1,
-    y: 1443398400
+    "x": 1,
+    "y": 1443398400,
+    "node_names": "j6872h"
   },
   {
-    x: 1,
-    y: 1366156800
+    "x": 1,
+    "y": 1366156800,
+    "node_names": "b3888w"
   },
   {
-    x: 1,
-    y: 1415664000
+    "x": 1,
+    "y": 1415664000,
+    "node_names": "b3888w"
   },
   {
-    x: 1,
-    y: 1364169600
+    "x": 1,
+    "y": 1364169600,
+    "node_names": "d7256f"
   },
   {
-    x: 1,
-    y: 1389139200
+    "x": 1,
+    "y": 1389139200,
+    "node_names": "h9993d"
   },
   {
-    x: 1,
-    y: 1437004800
+    "x": 1,
+    "y": 1437004800,
+    "node_names": "h9993d"
   },
   {
-    x: 1,
-    y: 1355356800
+    "x": 1,
+    "y": 1355356800,
+    "node_names": "h9993d"
   },
   {
-    x: 1,
-    y: 1438905600
+    "x": 1,
+    "y": 1438905600,
+    "node_names": "h9993d"
   },
   {
-    x: 1,
-    y: 1443571200
+    "x": 1,
+    "y": 1443571200,
+    "node_names": "h9993d"
   },
   {
-    x: 1,
-    y: 1444867200
+    "x": 1,
+    "y": 1444867200,
+    "node_names": "h9993d"
   },
   {
-    x: 1,
-    y: 1250467200
+    "x": 1,
+    "y": 1250467200,
+    "node_names": "d7256f"
   },
   {
-    x: 1,
-    y: 1333411200
+    "x": 1,
+    "y": 1333411200,
+    "node_names": "d7256f"
   },
   {
-    x: 1,
-    y: 1380067200
+    "x": 1,
+    "y": 1380067200,
+    "node_names": "j6872h"
   },
   {
-    x: 1,
-    y: 1438300800
+    "x": 1,
+    "y": 1438300800,
+    "node_names": "j6872h"
   },
   {
-    x: 1,
-    y: 1379548800
+    "x": 1,
+    "y": 1379548800,
+    "node_names": "q5415c"
   },
   {
-    x: 1,
-    y: 1349913600
+    "x": 1,
+    "y": 1349913600,
+    "node_names": "h9993d"
   },
   {
-    x: 1,
-    y: 1435276800
+    "x": 1,
+    "y": 1435276800,
+    "node_names": "x7136w"
   },
   {
-    x: 1,
-    y: 1438905600
+    "x": 1,
+    "y": 1438905600,
+    "node_names": "e3717l"
   },
   {
-    x: 1,
-    y: 1397088000
+    "x": 1,
+    "y": 1397088000,
+    "node_names": "x7136w"
   },
   {
-    x: 1,
-    y: 1389052800
+    "x": 1,
+    "y": 1389052800,
+    "node_names": "x7136w"
   },
   {
-    x: 1,
-    y: 1383091200
+    "x": 1,
+    "y": 1383091200,
+    "node_names": "x7136w"
   },
   {
-    x: 1,
-    y: 1370304000
+    "x": 1,
+    "y": 1370304000,
+    "node_names": "k5546z"
   },
   {
-    x: 1,
-    y: 1447718400
+    "x": 1,
+    "y": 1447718400,
+    "node_names": "e3717l"
   },
   {
-    x: 1,
-    y: 1370908800
+    "x": 1,
+    "y": 1370908800,
+    "node_names": "k5546z"
   },
   {
-    x: 1,
-    y: 1357257600
+    "x": 1,
+    "y": 1357257600,
+    "node_names": "e3717l"
   },
   {
-    x: 1,
-    y: 1360713600
+    "x": 1,
+    "y": 1360713600,
+    "node_names": "k5546z"
   },
   {
-    x: 1,
-    y: 1414972800
+    "x": 1,
+    "y": 1414972800,
+    "node_names": "k5546z"
   },
   {
-    x: 1,
-    y: 1396915200
+    "x": 1,
+    "y": 1396915200,
+    "node_names": "k5546z"
   },
   {
-    x: 1,
-    y: 1400025600
+    "x": 1,
+    "y": 1400025600,
+    "node_names": "g7173d"
   },
   {
-    x: 1,
-    y: 1445904000
+    "x": 1,
+    "y": 1445904000,
+    "node_names": "d8454u"
   },
   {
-    x: 1,
-    y: 1419724800
+    "x": 1,
+    "y": 1419724800,
+    "node_names": "d8454u"
   },
   {
-    x: 1,
-    y: 1446768000
+    "x": 1,
+    "y": 1446768000,
+    "node_names": "f9262c"
   },
   {
-    x: 1,
-    y: 1434585600
+    "x": 1,
+    "y": 1434585600,
+    "node_names": "g7173d"
   },
   {
-    x: 1,
-    y: 1443398400
+    "x": 1,
+    "y": 1443398400,
+    "node_names": "o3158y"
   },
   {
-    x: 1,
-    y: 1366416000
+    "x": 1,
+    "y": 1366416000,
+    "node_names": "o3158y"
   },
   {
-    x: 1,
-    y: 1386115200
+    "x": 1,
+    "y": 1386115200,
+    "node_names": "s9205g"
   },
   {
-    x: 1,
-    y: 1439424000
+    "x": 1,
+    "y": 1439424000,
+    "node_names": "h6556f"
   },
   {
-    x: 1,
-    y: 1374192000
+    "x": 1,
+    "y": 1374192000,
+    "node_names": "l2360d"
   },
   {
-    x: 1,
-    y: 1412208000
+    "x": 1,
+    "y": 1412208000,
+    "node_names": "f9262c"
   },
   {
-    x: 1,
-    y: 1423699200
+    "x": 1,
+    "y": 1423699200,
+    "node_names": "d8454u"
   },
   {
-    x: 1,
-    y: 1394755200
+    "x": 1,
+    "y": 1394755200,
+    "node_names": "l4243i"
   },
   {
-    x: 1,
-    y: 1347580800
+    "x": 1,
+    "y": 1347580800,
+    "node_names": "r5827i"
   },
   {
-    x: 1,
-    y: 1310947200
+    "x": 1,
+    "y": 1310947200,
+    "node_names": "h6556f"
   },
   {
-    x: 1,
-    y: 1443744000
+    "x": 1,
+    "y": 1443744000,
+    "node_names": "h6556f"
   },
   {
-    x: 1,
-    y: 1418860800
+    "x": 1,
+    "y": 1418860800,
+    "node_names": "h6556f"
   },
   {
-    x: 1,
-    y: 1392768000
+    "x": 1,
+    "y": 1392768000,
+    "node_names": "d8454u"
   },
   {
-    x: 1,
-    y: 1410220800
+    "x": 1,
+    "y": 1410220800,
+    "node_names": "l4243i"
   },
   {
-    x: 1,
-    y: 1413936000
+    "x": 1,
+    "y": 1413936000,
+    "node_names": "u4176p"
   },
   {
-    x: 1,
-    y: 1365465600
+    "x": 1,
+    "y": 1365465600,
+    "node_names": "h6556f"
   },
   {
-    x: 1,
-    y: 1418601600
+    "x": 1,
+    "y": 1418601600,
+    "node_names": "w9986a"
   },
   {
-    x: 1,
-    y: 1448236800
+    "x": 1,
+    "y": 1448236800,
+    "node_names": "p3901e"
   },
   {
-    x: 1,
-    y: 1399420800
+    "x": 1,
+    "y": 1399420800,
+    "node_names": "o3158y"
   },
   {
-    x: 1,
-    y: 1394064000
+    "x": 1,
+    "y": 1394064000,
+    "node_names": "f9262c"
   },
   {
-    x: 1,
-    y: 1410220800
+    "x": 1,
+    "y": 1410220800,
+    "node_names": "h4326u"
   },
   {
-    x: 1,
-    y: 1383177600
+    "x": 1,
+    "y": 1383177600,
+    "node_names": "r5827i"
   },
   {
-    x: 1,
-    y: 1336435200
+    "x": 1,
+    "y": 1336435200,
+    "node_names": "r5827i"
   },
   {
-    x: 1,
-    y: 1400457600
+    "x": 1,
+    "y": 1400457600,
+    "node_names": "s8156a"
   },
   {
-    x: 1,
-    y: 1319414400
+    "x": 1,
+    "y": 1319414400,
+    "node_names": "h5231b"
   },
   {
-    x: 1,
-    y: 1339632000
+    "x": 1,
+    "y": 1339632000,
+    "node_names": "r5827i"
   },
   {
-    x: 1,
-    y: 1306281600
+    "x": 1,
+    "y": 1306281600,
+    "node_names": "w9986a"
   },
   {
-    x: 1,
-    y: 1446595200
+    "x": 1,
+    "y": 1446595200,
+    "node_names": "r5827i"
   },
   {
-    x: 1,
-    y: 1446422400
+    "x": 1,
+    "y": 1446422400,
+    "node_names": "s8156a"
   },
   {
-    x: 1,
-    y: 1438041600
+    "x": 1,
+    "y": 1438041600,
+    "node_names": "r5827i"
   },
   {
-    x: 1,
-    y: 1375401600
+    "x": 1,
+    "y": 1375401600,
+    "node_names": "h5231b"
   },
   {
-    x: 1,
-    y: 1377043200
+    "x": 1,
+    "y": 1377043200,
+    "node_names": "r5827i"
   },
   {
-    x: 1,
-    y: 1398988800
+    "x": 1,
+    "y": 1398988800,
+    "node_names": "r5827i"
   },
   {
-    x: 1,
-    y: 1414368000
+    "x": 1,
+    "y": 1414368000,
+    "node_names": "p3901e"
   },
   {
-    x: 1,
-    y: 1337904000
+    "x": 1,
+    "y": 1337904000,
+    "node_names": "r5827i"
   },
   {
-    x: 1,
-    y: 1389657600
+    "x": 1,
+    "y": 1389657600,
+    "node_names": "h5231b"
   },
   {
-    x: 1,
-    y: 1366934400
+    "x": 1,
+    "y": 1366934400,
+    "node_names": "p3901e"
   },
   {
-    x: 1,
-    y: 1363737600
+    "x": 1,
+    "y": 1363737600,
+    "node_names": "h5231b"
   },
   {
-    x: 1,
-    y: 1403568000
+    "x": 1,
+    "y": 1403568000,
+    "node_names": "s8156a"
   },
   {
-    x: 1,
-    y: 1375833600
+    "x": 1,
+    "y": 1375833600,
+    "node_names": "w9986a"
   },
   {
-    x: 1,
-    y: 1426204800
+    "x": 1,
+    "y": 1426204800,
+    "node_names": "h5231b"
   },
   {
-    x: 1,
-    y: 1416441600
+    "x": 1,
+    "y": 1416441600,
+    "node_names": "r5827i"
   },
   {
-    x: 1,
-    y: 1391126400
+    "x": 1,
+    "y": 1391126400,
+    "node_names": "s8156a"
   },
   {
-    x: 2,
-    y: 1248000000
+    "x": 2,
+    "y": 1248000000,
+    "node_names": "bevacizumab"
   },
   {
-    x: 2,
-    y: 1372000000
+    "x": 2,
+    "y": 1372000000,
+    "node_names": "erlotinib hcl"
   },
   {
-    x: 2,
-    y: 1399000000
+    "x": 2,
+    "y": 1399000000,
+    "node_names": "axitinib"
   },
   {
-    x: 2,
-    y: 1425000000
+    "x": 2,
+    "y": 1425000000,
+    "node_names": "nivolumab"
   },
   {
-    x: 3,
-    y: 1372000000
+    "x": 3,
+    "y": 1372000000,
+    "node_names": "community"
   },
   {
-    x: 3,
-    y: 1425000000
+    "x": 3,
+    "y": 1425000000,
+    "node_names": "academic"
   }
 ];
 
 var links = [
   {
-    source: nodes[0],
-    target: nodes[303]
+    "source": nodes[0],
+    "target": nodes[303],
+    "source_names": "a9913g",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[1],
-    target: nodes[302]
+    "source": nodes[1],
+    "target": nodes[302],
+    "source_names": "a6230g",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[2],
-    target: nodes[303]
+    "source": nodes[2],
+    "target": nodes[303],
+    "source_names": "a6230g",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[3],
-    target: nodes[303]
+    "source": nodes[3],
+    "target": nodes[303],
+    "source_names": "a9913g",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[4],
-    target: nodes[302]
+    "source": nodes[4],
+    "target": nodes[302],
+    "source_names": "j8916h",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[5],
-    target: nodes[303]
+    "source": nodes[5],
+    "target": nodes[303],
+    "source_names": "j8916h",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[6],
-    target: nodes[302]
+    "source": nodes[6],
+    "target": nodes[302],
+    "source_names": "j8916h",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[7],
-    target: nodes[303]
+    "source": nodes[7],
+    "target": nodes[303],
+    "source_names": "a9913g",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[8],
-    target: nodes[304]
+    "source": nodes[8],
+    "target": nodes[304],
+    "source_names": "a9913g",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[9],
-    target: nodes[305]
+    "source": nodes[9],
+    "target": nodes[305],
+    "source_names": "j8916h",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[10],
-    target: nodes[305]
+    "source": nodes[10],
+    "target": nodes[305],
+    "source_names": "a6230g",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[11],
-    target: nodes[305]
+    "source": nodes[11],
+    "target": nodes[305],
+    "source_names": "s9417f",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[12],
-    target: nodes[304]
+    "source": nodes[12],
+    "target": nodes[304],
+    "source_names": "a9913g",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[13],
-    target: nodes[305]
+    "source": nodes[13],
+    "target": nodes[305],
+    "source_names": "d4170t",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[14],
-    target: nodes[305]
+    "source": nodes[14],
+    "target": nodes[305],
+    "source_names": "j8916h",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[15],
-    target: nodes[305]
+    "source": nodes[15],
+    "target": nodes[305],
+    "source_names": "t6780o",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[16],
-    target: nodes[302]
+    "source": nodes[16],
+    "target": nodes[302],
+    "source_names": "l2680i",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[17],
-    target: nodes[303]
+    "source": nodes[17],
+    "target": nodes[303],
+    "source_names": "j8916h",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[18],
-    target: nodes[302]
+    "source": nodes[18],
+    "target": nodes[302],
+    "source_names": "t9815h",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[19],
-    target: nodes[303]
+    "source": nodes[19],
+    "target": nodes[303],
+    "source_names": "t8292i",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[20],
-    target: nodes[305]
+    "source": nodes[20],
+    "target": nodes[305],
+    "source_names": "t6780o",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[21],
-    target: nodes[303]
+    "source": nodes[21],
+    "target": nodes[303],
+    "source_names": "a9913g",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[22],
-    target: nodes[303]
+    "source": nodes[22],
+    "target": nodes[303],
+    "source_names": "s4096r",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[23],
-    target: nodes[305]
+    "source": nodes[23],
+    "target": nodes[305],
+    "source_names": "l2680i",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[24],
-    target: nodes[302]
+    "source": nodes[24],
+    "target": nodes[302],
+    "source_names": "l2680i",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[25],
-    target: nodes[305]
+    "source": nodes[25],
+    "target": nodes[305],
+    "source_names": "s9417f",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[26],
-    target: nodes[305]
+    "source": nodes[26],
+    "target": nodes[305],
+    "source_names": "t9815h",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[27],
-    target: nodes[303]
+    "source": nodes[27],
+    "target": nodes[303],
+    "source_names": "n7621g",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[28],
-    target: nodes[302]
+    "source": nodes[28],
+    "target": nodes[302],
+    "source_names": "w5950u",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[29],
-    target: nodes[302]
+    "source": nodes[29],
+    "target": nodes[302],
+    "source_names": "i2723u",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[30],
-    target: nodes[304]
+    "source": nodes[30],
+    "target": nodes[304],
+    "source_names": "y2942r",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[31],
-    target: nodes[303]
+    "source": nodes[31],
+    "target": nodes[303],
+    "source_names": "w5950u",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[32],
-    target: nodes[302]
+    "source": nodes[32],
+    "target": nodes[302],
+    "source_names": "t6780o",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[33],
-    target: nodes[304]
+    "source": nodes[33],
+    "target": nodes[304],
+    "source_names": "w5950u",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[34],
-    target: nodes[303]
+    "source": nodes[34],
+    "target": nodes[303],
+    "source_names": "s9417f",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[35],
-    target: nodes[303]
+    "source": nodes[35],
+    "target": nodes[303],
+    "source_names": "t9815h",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[36],
-    target: nodes[304]
+    "source": nodes[36],
+    "target": nodes[304],
+    "source_names": "s9417f",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[37],
-    target: nodes[302]
+    "source": nodes[37],
+    "target": nodes[302],
+    "source_names": "s4096r",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[38],
-    target: nodes[304]
+    "source": nodes[38],
+    "target": nodes[304],
+    "source_names": "n7621g",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[39],
-    target: nodes[305]
+    "source": nodes[39],
+    "target": nodes[305],
+    "source_names": "n7621g",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[40],
-    target: nodes[305]
+    "source": nodes[40],
+    "target": nodes[305],
+    "source_names": "g3574k",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[41],
-    target: nodes[303]
+    "source": nodes[41],
+    "target": nodes[303],
+    "source_names": "g3574k",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[42],
-    target: nodes[302]
+    "source": nodes[42],
+    "target": nodes[302],
+    "source_names": "s3521i",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[43],
-    target: nodes[303]
+    "source": nodes[43],
+    "target": nodes[303],
+    "source_names": "s3521i",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[44],
-    target: nodes[305]
+    "source": nodes[44],
+    "target": nodes[305],
+    "source_names": "s3521i",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[45],
-    target: nodes[305]
+    "source": nodes[45],
+    "target": nodes[305],
+    "source_names": "r4355j",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[46],
-    target: nodes[305]
+    "source": nodes[46],
+    "target": nodes[305],
+    "source_names": "r4355j",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[47],
-    target: nodes[302]
+    "source": nodes[47],
+    "target": nodes[302],
+    "source_names": "w3752a",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[48],
-    target: nodes[305]
+    "source": nodes[48],
+    "target": nodes[305],
+    "source_names": "m2177s",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[49],
-    target: nodes[302]
+    "source": nodes[49],
+    "target": nodes[302],
+    "source_names": "s3521i",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[50],
-    target: nodes[305]
+    "source": nodes[50],
+    "target": nodes[305],
+    "source_names": "w3752a",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[51],
-    target: nodes[302]
+    "source": nodes[51],
+    "target": nodes[302],
+    "source_names": "m2177s",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[52],
-    target: nodes[302]
+    "source": nodes[52],
+    "target": nodes[302],
+    "source_names": "w3752a",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[53],
-    target: nodes[302]
+    "source": nodes[53],
+    "target": nodes[302],
+    "source_names": "g3574k",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[54],
-    target: nodes[305]
+    "source": nodes[54],
+    "target": nodes[305],
+    "source_names": "n8228o",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[55],
-    target: nodes[305]
+    "source": nodes[55],
+    "target": nodes[305],
+    "source_names": "g8081s",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[56],
-    target: nodes[303]
+    "source": nodes[56],
+    "target": nodes[303],
+    "source_names": "g8081s",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[57],
-    target: nodes[305]
+    "source": nodes[57],
+    "target": nodes[305],
+    "source_names": "j5727w",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[58],
-    target: nodes[305]
+    "source": nodes[58],
+    "target": nodes[305],
+    "source_names": "g8081s",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[59],
-    target: nodes[305]
+    "source": nodes[59],
+    "target": nodes[305],
+    "source_names": "s3521i",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[60],
-    target: nodes[303]
+    "source": nodes[60],
+    "target": nodes[303],
+    "source_names": "s3521i",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[61],
-    target: nodes[302]
+    "source": nodes[61],
+    "target": nodes[302],
+    "source_names": "g8081s",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[62],
-    target: nodes[303]
+    "source": nodes[62],
+    "target": nodes[303],
+    "source_names": "w3752a",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[63],
-    target: nodes[304]
+    "source": nodes[63],
+    "target": nodes[304],
+    "source_names": "t8223p",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[64],
-    target: nodes[302]
+    "source": nodes[64],
+    "target": nodes[302],
+    "source_names": "t8223p",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[65],
-    target: nodes[302]
+    "source": nodes[65],
+    "target": nodes[302],
+    "source_names": "m2177s",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[66],
-    target: nodes[302]
+    "source": nodes[66],
+    "target": nodes[302],
+    "source_names": "t8223p",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[67],
-    target: nodes[304]
+    "source": nodes[67],
+    "target": nodes[304],
+    "source_names": "p9302d",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[68],
-    target: nodes[302]
+    "source": nodes[68],
+    "target": nodes[302],
+    "source_names": "f3078p",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[69],
-    target: nodes[302]
+    "source": nodes[69],
+    "target": nodes[302],
+    "source_names": "z7390g",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[70],
-    target: nodes[302]
+    "source": nodes[70],
+    "target": nodes[302],
+    "source_names": "a6991u",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[71],
-    target: nodes[303]
+    "source": nodes[71],
+    "target": nodes[303],
+    "source_names": "d2518r",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[72],
-    target: nodes[303]
+    "source": nodes[72],
+    "target": nodes[303],
+    "source_names": "t9509b",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[73],
-    target: nodes[303]
+    "source": nodes[73],
+    "target": nodes[303],
+    "source_names": "e6994f",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[74],
-    target: nodes[302]
+    "source": nodes[74],
+    "target": nodes[302],
+    "source_names": "d2518r",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[75],
-    target: nodes[305]
+    "source": nodes[75],
+    "target": nodes[305],
+    "source_names": "e6994f",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[76],
-    target: nodes[302]
+    "source": nodes[76],
+    "target": nodes[302],
+    "source_names": "h8801t",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[77],
-    target: nodes[302]
+    "source": nodes[77],
+    "target": nodes[302],
+    "source_names": "b7786f",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[78],
-    target: nodes[302]
+    "source": nodes[78],
+    "target": nodes[302],
+    "source_names": "d2518r",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[79],
-    target: nodes[302]
+    "source": nodes[79],
+    "target": nodes[302],
+    "source_names": "e6994f",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[80],
-    target: nodes[305]
+    "source": nodes[80],
+    "target": nodes[305],
+    "source_names": "y7132e",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[81],
-    target: nodes[302]
+    "source": nodes[81],
+    "target": nodes[302],
+    "source_names": "e6994f",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[82],
-    target: nodes[303]
+    "source": nodes[82],
+    "target": nodes[303],
+    "source_names": "g3064e",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[83],
-    target: nodes[305]
+    "source": nodes[83],
+    "target": nodes[305],
+    "source_names": "h8801t",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[84],
-    target: nodes[303]
+    "source": nodes[84],
+    "target": nodes[303],
+    "source_names": "b7786f",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[85],
-    target: nodes[305]
+    "source": nodes[85],
+    "target": nodes[305],
+    "source_names": "b7786f",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[86],
-    target: nodes[305]
+    "source": nodes[86],
+    "target": nodes[305],
+    "source_names": "e6994f",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[87],
-    target: nodes[304]
+    "source": nodes[87],
+    "target": nodes[304],
+    "source_names": "w7942e",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[88],
-    target: nodes[302]
+    "source": nodes[88],
+    "target": nodes[302],
+    "source_names": "h8801t",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[89],
-    target: nodes[304]
+    "source": nodes[89],
+    "target": nodes[304],
+    "source_names": "o5515x",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[90],
-    target: nodes[303]
+    "source": nodes[90],
+    "target": nodes[303],
+    "source_names": "o5515x",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[91],
-    target: nodes[302]
+    "source": nodes[91],
+    "target": nodes[302],
+    "source_names": "t9509b",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[92],
-    target: nodes[302]
+    "source": nodes[92],
+    "target": nodes[302],
+    "source_names": "w7942e",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[93],
-    target: nodes[305]
+    "source": nodes[93],
+    "target": nodes[305],
+    "source_names": "g3064e",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[94],
-    target: nodes[304]
+    "source": nodes[94],
+    "target": nodes[304],
+    "source_names": "y7132e",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[95],
-    target: nodes[305]
+    "source": nodes[95],
+    "target": nodes[305],
+    "source_names": "t9509b",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[96],
-    target: nodes[302]
+    "source": nodes[96],
+    "target": nodes[302],
+    "source_names": "r7063r",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[97],
-    target: nodes[303]
+    "source": nodes[97],
+    "target": nodes[303],
+    "source_names": "e6994f",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[98],
-    target: nodes[302]
+    "source": nodes[98],
+    "target": nodes[302],
+    "source_names": "e6994f",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[99],
-    target: nodes[302]
+    "source": nodes[99],
+    "target": nodes[302],
+    "source_names": "t9509b",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[100],
-    target: nodes[305]
+    "source": nodes[100],
+    "target": nodes[305],
+    "source_names": "b7786f",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[101],
-    target: nodes[302]
+    "source": nodes[101],
+    "target": nodes[302],
+    "source_names": "h8801t",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[102],
-    target: nodes[302]
+    "source": nodes[102],
+    "target": nodes[302],
+    "source_names": "w7942e",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[103],
-    target: nodes[303]
+    "source": nodes[103],
+    "target": nodes[303],
+    "source_names": "h8801t",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[104],
-    target: nodes[302]
+    "source": nodes[104],
+    "target": nodes[302],
+    "source_names": "j7804r",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[105],
-    target: nodes[302]
+    "source": nodes[105],
+    "target": nodes[302],
+    "source_names": "j7804r",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[106],
-    target: nodes[305]
+    "source": nodes[106],
+    "target": nodes[305],
+    "source_names": "y7132e",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[107],
-    target: nodes[302]
+    "source": nodes[107],
+    "target": nodes[302],
+    "source_names": "g3064e",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[108],
-    target: nodes[302]
+    "source": nodes[108],
+    "target": nodes[302],
+    "source_names": "t9509b",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[109],
-    target: nodes[302]
+    "source": nodes[109],
+    "target": nodes[302],
+    "source_names": "e6994f",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[110],
-    target: nodes[302]
+    "source": nodes[110],
+    "target": nodes[302],
+    "source_names": "e6994f",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[111],
-    target: nodes[303]
+    "source": nodes[111],
+    "target": nodes[303],
+    "source_names": "j7804r",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[112],
-    target: nodes[302]
+    "source": nodes[112],
+    "target": nodes[302],
+    "source_names": "g3064e",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[113],
-    target: nodes[304]
+    "source": nodes[113],
+    "target": nodes[304],
+    "source_names": "y7132e",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[114],
-    target: nodes[305]
+    "source": nodes[114],
+    "target": nodes[305],
+    "source_names": "b7786f",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[115],
-    target: nodes[303]
+    "source": nodes[115],
+    "target": nodes[303],
+    "source_names": "y4215o",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[116],
-    target: nodes[303]
+    "source": nodes[116],
+    "target": nodes[303],
+    "source_names": "u5435d",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[117],
-    target: nodes[303]
+    "source": nodes[117],
+    "target": nodes[303],
+    "source_names": "y4215o",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[118],
-    target: nodes[305]
+    "source": nodes[118],
+    "target": nodes[305],
+    "source_names": "u5435d",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[119],
-    target: nodes[305]
+    "source": nodes[119],
+    "target": nodes[305],
+    "source_names": "u5435d",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[120],
-    target: nodes[305]
+    "source": nodes[120],
+    "target": nodes[305],
+    "source_names": "g5736q",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[121],
-    target: nodes[305]
+    "source": nodes[121],
+    "target": nodes[305],
+    "source_names": "a7481m",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[122],
-    target: nodes[305]
+    "source": nodes[122],
+    "target": nodes[305],
+    "source_names": "u5435d",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[123],
-    target: nodes[305]
+    "source": nodes[123],
+    "target": nodes[305],
+    "source_names": "b8717j",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[124],
-    target: nodes[302]
+    "source": nodes[124],
+    "target": nodes[302],
+    "source_names": "n9925d",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[125],
-    target: nodes[303]
+    "source": nodes[125],
+    "target": nodes[303],
+    "source_names": "g3471j",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[126],
-    target: nodes[302]
+    "source": nodes[126],
+    "target": nodes[302],
+    "source_names": "n9925d",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[127],
-    target: nodes[303]
+    "source": nodes[127],
+    "target": nodes[303],
+    "source_names": "n9925d",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[128],
-    target: nodes[303]
+    "source": nodes[128],
+    "target": nodes[303],
+    "source_names": "g3471j",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[129],
-    target: nodes[302]
+    "source": nodes[129],
+    "target": nodes[302],
+    "source_names": "g3471j",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[130],
-    target: nodes[305]
+    "source": nodes[130],
+    "target": nodes[305],
+    "source_names": "e6354h",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[131],
-    target: nodes[305]
+    "source": nodes[131],
+    "target": nodes[305],
+    "source_names": "e6354h",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[132],
-    target: nodes[305]
+    "source": nodes[132],
+    "target": nodes[305],
+    "source_names": "o6770p",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[133],
-    target: nodes[302]
+    "source": nodes[133],
+    "target": nodes[302],
+    "source_names": "e2667q",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[134],
-    target: nodes[303]
+    "source": nodes[134],
+    "target": nodes[303],
+    "source_names": "d7586h",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[135],
-    target: nodes[303]
+    "source": nodes[135],
+    "target": nodes[303],
+    "source_names": "d7586h",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[137],
-    target: nodes[302]
+    "source": nodes[137],
+    "target": nodes[302],
+    "source_names": "e2667q",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[138],
-    target: nodes[304]
+    "source": nodes[138],
+    "target": nodes[304],
+    "source_names": "e2667q",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[140],
-    target: nodes[304]
+    "source": nodes[140],
+    "target": nodes[304],
+    "source_names": "h8214l",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[141],
-    target: nodes[304]
+    "source": nodes[141],
+    "target": nodes[304],
+    "source_names": "d7586h",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[142],
-    target: nodes[305]
+    "source": nodes[142],
+    "target": nodes[305],
+    "source_names": "5402v",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[143],
-    target: nodes[305]
+    "source": nodes[143],
+    "target": nodes[305],
+    "source_names": "5402v",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[144],
-    target: nodes[305]
+    "source": nodes[144],
+    "target": nodes[305],
+    "source_names": "a3169y",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[145],
-    target: nodes[304]
+    "source": nodes[145],
+    "target": nodes[304],
+    "source_names": "a3169y",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[146],
-    target: nodes[305]
+    "source": nodes[146],
+    "target": nodes[305],
+    "source_names": "a3169y",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[147],
-    target: nodes[305]
+    "source": nodes[147],
+    "target": nodes[305],
+    "source_names": "a3169y",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[148],
-    target: nodes[302]
+    "source": nodes[148],
+    "target": nodes[302],
+    "source_names": "c5562s",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[149],
-    target: nodes[305]
+    "source": nodes[149],
+    "target": nodes[305],
+    "source_names": "e8039w",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[150],
-    target: nodes[305]
+    "source": nodes[150],
+    "target": nodes[305],
+    "source_names": "d9301s",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[151],
-    target: nodes[302]
+    "source": nodes[151],
+    "target": nodes[302],
+    "source_names": "d9301s",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[152],
-    target: nodes[302]
+    "source": nodes[152],
+    "target": nodes[302],
+    "source_names": "d9301s",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[153],
-    target: nodes[302]
+    "source": nodes[153],
+    "target": nodes[302],
+    "source_names": "d9750n",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[154],
-    target: nodes[304]
+    "source": nodes[154],
+    "target": nodes[304],
+    "source_names": "d9750n",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[155],
-    target: nodes[303]
+    "source": nodes[155],
+    "target": nodes[303],
+    "source_names": "d9750n",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[156],
-    target: nodes[302]
+    "source": nodes[156],
+    "target": nodes[302],
+    "source_names": "d9750n",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[157],
-    target: nodes[303]
+    "source": nodes[157],
+    "target": nodes[303],
+    "source_names": "d9750n",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[158],
-    target: nodes[305]
+    "source": nodes[158],
+    "target": nodes[305],
+    "source_names": "k3464g",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[159],
-    target: nodes[303]
+    "source": nodes[159],
+    "target": nodes[303],
+    "source_names": "e8039w",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[160],
-    target: nodes[302]
+    "source": nodes[160],
+    "target": nodes[302],
+    "source_names": "e8039w",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[161],
-    target: nodes[305]
+    "source": nodes[161],
+    "target": nodes[305],
+    "source_names": "e8039w",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[162],
-    target: nodes[305]
+    "source": nodes[162],
+    "target": nodes[305],
+    "source_names": "c5562s",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[163],
-    target: nodes[305]
+    "source": nodes[163],
+    "target": nodes[305],
+    "source_names": "c5562s",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[164],
-    target: nodes[302]
+    "source": nodes[164],
+    "target": nodes[302],
+    "source_names": "c5562s",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[165],
-    target: nodes[302]
+    "source": nodes[165],
+    "target": nodes[302],
+    "source_names": "c5562s",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[166],
-    target: nodes[305]
+    "source": nodes[166],
+    "target": nodes[305],
+    "source_names": "c5562s",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[167],
-    target: nodes[305]
+    "source": nodes[167],
+    "target": nodes[305],
+    "source_names": "c5562s",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[168],
-    target: nodes[302]
+    "source": nodes[168],
+    "target": nodes[302],
+    "source_names": "5402v",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[169],
-    target: nodes[305]
+    "source": nodes[169],
+    "target": nodes[305],
+    "source_names": "c5562s",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[170],
-    target: nodes[305]
+    "source": nodes[170],
+    "target": nodes[305],
+    "source_names": "c5562s",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[171],
-    target: nodes[305]
+    "source": nodes[171],
+    "target": nodes[305],
+    "source_names": "c5562s",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[172],
-    target: nodes[302]
+    "source": nodes[172],
+    "target": nodes[302],
+    "source_names": "c5562s",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[173],
-    target: nodes[303]
+    "source": nodes[173],
+    "target": nodes[303],
+    "source_names": "c5562s",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[174],
-    target: nodes[303]
+    "source": nodes[174],
+    "target": nodes[303],
+    "source_names": "c5562s",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[175],
-    target: nodes[302]
+    "source": nodes[175],
+    "target": nodes[302],
+    "source_names": "e3260h",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[176],
-    target: nodes[302]
+    "source": nodes[176],
+    "target": nodes[302],
+    "source_names": "e3260h",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[177],
-    target: nodes[305]
+    "source": nodes[177],
+    "target": nodes[305],
+    "source_names": "f2855t",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[178],
-    target: nodes[302]
+    "source": nodes[178],
+    "target": nodes[302],
+    "source_names": "w2379e",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[179],
-    target: nodes[304]
+    "source": nodes[179],
+    "target": nodes[304],
+    "source_names": "n6791l",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[180],
-    target: nodes[302]
+    "source": nodes[180],
+    "target": nodes[302],
+    "source_names": "n6791l",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[181],
-    target: nodes[303]
+    "source": nodes[181],
+    "target": nodes[303],
+    "source_names": "g4372m",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[182],
-    target: nodes[305]
+    "source": nodes[182],
+    "target": nodes[305],
+    "source_names": "c5562s",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[183],
-    target: nodes[302]
+    "source": nodes[183],
+    "target": nodes[302],
+    "source_names": "c5562s",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[184],
-    target: nodes[303]
+    "source": nodes[184],
+    "target": nodes[303],
+    "source_names": "g4372m",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[185],
-    target: nodes[302]
+    "source": nodes[185],
+    "target": nodes[302],
+    "source_names": "c5562s",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[186],
-    target: nodes[302]
+    "source": nodes[186],
+    "target": nodes[302],
+    "source_names": "w2379e",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[187],
-    target: nodes[305]
+    "source": nodes[187],
+    "target": nodes[305],
+    "source_names": "g4372m",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[188],
-    target: nodes[303]
+    "source": nodes[188],
+    "target": nodes[303],
+    "source_names": "e3260h",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[189],
-    target: nodes[305]
+    "source": nodes[189],
+    "target": nodes[305],
+    "source_names": "g4372m",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[190],
-    target: nodes[305]
+    "source": nodes[190],
+    "target": nodes[305],
+    "source_names": "w2379e",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[191],
-    target: nodes[302]
+    "source": nodes[191],
+    "target": nodes[302],
+    "source_names": "b9305v",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[192],
-    target: nodes[303]
+    "source": nodes[192],
+    "target": nodes[303],
+    "source_names": "b9305v",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[193],
-    target: nodes[303]
+    "source": nodes[193],
+    "target": nodes[303],
+    "source_names": "b9305v",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[194],
-    target: nodes[302]
+    "source": nodes[194],
+    "target": nodes[302],
+    "source_names": "e6934t",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[195],
-    target: nodes[302]
+    "source": nodes[195],
+    "target": nodes[302],
+    "source_names": "m3086o",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[196],
-    target: nodes[303]
+    "source": nodes[196],
+    "target": nodes[303],
+    "source_names": "e6934t",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[197],
-    target: nodes[305]
+    "source": nodes[197],
+    "target": nodes[305],
+    "source_names": "e7574j",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[198],
-    target: nodes[303]
+    "source": nodes[198],
+    "target": nodes[303],
+    "source_names": "e7574j",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[199],
-    target: nodes[305]
+    "source": nodes[199],
+    "target": nodes[305],
+    "source_names": "f3783s",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[200],
-    target: nodes[302]
+    "source": nodes[200],
+    "target": nodes[302],
+    "source_names": "o5112h",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[201],
-    target: nodes[302]
+    "source": nodes[201],
+    "target": nodes[302],
+    "source_names": "e6934t",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[202],
-    target: nodes[304]
+    "source": nodes[202],
+    "target": nodes[304],
+    "source_names": "j3161r",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[203],
-    target: nodes[302]
+    "source": nodes[203],
+    "target": nodes[302],
+    "source_names": "e7574j",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[204],
-    target: nodes[305]
+    "source": nodes[204],
+    "target": nodes[305],
+    "source_names": "f6029y",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[205],
-    target: nodes[305]
+    "source": nodes[205],
+    "target": nodes[305],
+    "source_names": "f6029y",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[206],
-    target: nodes[303]
+    "source": nodes[206],
+    "target": nodes[303],
+    "source_names": "f3783s",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[207],
-    target: nodes[302]
+    "source": nodes[207],
+    "target": nodes[302],
+    "source_names": "e6934t",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[208],
-    target: nodes[305]
+    "source": nodes[208],
+    "target": nodes[305],
+    "source_names": "o5112h",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[209],
-    target: nodes[302]
+    "source": nodes[209],
+    "target": nodes[302],
+    "source_names": "b4407n",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[210],
-    target: nodes[305]
+    "source": nodes[210],
+    "target": nodes[305],
+    "source_names": "f6029y",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[211],
-    target: nodes[305]
+    "source": nodes[211],
+    "target": nodes[305],
+    "source_names": "o5112h",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[212],
-    target: nodes[303]
+    "source": nodes[212],
+    "target": nodes[303],
+    "source_names": "o5112h",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[213],
-    target: nodes[303]
+    "source": nodes[213],
+    "target": nodes[303],
+    "source_names": "o5112h",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[214],
-    target: nodes[302]
+    "source": nodes[214],
+    "target": nodes[302],
+    "source_names": "m3086o",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[215],
-    target: nodes[305]
+    "source": nodes[215],
+    "target": nodes[305],
+    "source_names": "j3161r",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[216],
-    target: nodes[305]
+    "source": nodes[216],
+    "target": nodes[305],
+    "source_names": "m6462t",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[217],
-    target: nodes[302]
+    "source": nodes[217],
+    "target": nodes[302],
+    "source_names": "h6689r",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[218],
-    target: nodes[303]
+    "source": nodes[218],
+    "target": nodes[303],
+    "source_names": "o5112h",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[219],
-    target: nodes[305]
+    "source": nodes[219],
+    "target": nodes[305],
+    "source_names": "e6934t",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[220],
-    target: nodes[305]
+    "source": nodes[220],
+    "target": nodes[305],
+    "source_names": "j3161r",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[221],
-    target: nodes[302]
+    "source": nodes[221],
+    "target": nodes[302],
+    "source_names": "m3086o",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[222],
-    target: nodes[302]
+    "source": nodes[222],
+    "target": nodes[302],
+    "source_names": "m6462t",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[223],
-    target: nodes[302]
+    "source": nodes[223],
+    "target": nodes[302],
+    "source_names": "y2673w",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[224],
-    target: nodes[304]
+    "source": nodes[224],
+    "target": nodes[304],
+    "source_names": "b3888w",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[225],
-    target: nodes[305]
+    "source": nodes[225],
+    "target": nodes[305],
+    "source_names": "y2673w",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[226],
-    target: nodes[305]
+    "source": nodes[226],
+    "target": nodes[305],
+    "source_names": "a8749y",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[227],
-    target: nodes[303]
+    "source": nodes[227],
+    "target": nodes[303],
+    "source_names": "y2673w",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[228],
-    target: nodes[303]
+    "source": nodes[228],
+    "target": nodes[303],
+    "source_names": "j6872h",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[229],
-    target: nodes[305]
+    "source": nodes[229],
+    "target": nodes[305],
+    "source_names": "b3888w",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[230],
-    target: nodes[302]
+    "source": nodes[230],
+    "target": nodes[302],
+    "source_names": "b3888w",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[231],
-    target: nodes[305]
+    "source": nodes[231],
+    "target": nodes[305],
+    "source_names": "d7256f",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[232],
-    target: nodes[305]
+    "source": nodes[232],
+    "target": nodes[305],
+    "source_names": "h9993d",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[233],
-    target: nodes[305]
+    "source": nodes[233],
+    "target": nodes[305],
+    "source_names": "h9993d",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[234],
-    target: nodes[302]
+    "source": nodes[234],
+    "target": nodes[302],
+    "source_names": "h9993d",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[235],
-    target: nodes[305]
+    "source": nodes[235],
+    "target": nodes[305],
+    "source_names": "h9993d",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[236],
-    target: nodes[302]
+    "source": nodes[236],
+    "target": nodes[302],
+    "source_names": "h9993d",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[237],
-    target: nodes[305]
+    "source": nodes[237],
+    "target": nodes[305],
+    "source_names": "h9993d",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[238],
-    target: nodes[302]
+    "source": nodes[238],
+    "target": nodes[302],
+    "source_names": "d7256f",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[239],
-    target: nodes[305]
+    "source": nodes[239],
+    "target": nodes[305],
+    "source_names": "d7256f",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[240],
-    target: nodes[305]
+    "source": nodes[240],
+    "target": nodes[305],
+    "source_names": "j6872h",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[241],
-    target: nodes[302]
+    "source": nodes[241],
+    "target": nodes[302],
+    "source_names": "j6872h",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[242],
-    target: nodes[304]
+    "source": nodes[242],
+    "target": nodes[304],
+    "source_names": "q5415c",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[243],
-    target: nodes[303]
+    "source": nodes[243],
+    "target": nodes[303],
+    "source_names": "h9993d",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[244],
-    target: nodes[305]
+    "source": nodes[244],
+    "target": nodes[305],
+    "source_names": "x7136w",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[245],
-    target: nodes[305]
+    "source": nodes[245],
+    "target": nodes[305],
+    "source_names": "e3717l",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[246],
-    target: nodes[305]
+    "source": nodes[246],
+    "target": nodes[305],
+    "source_names": "x7136w",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[247],
-    target: nodes[302]
+    "source": nodes[247],
+    "target": nodes[302],
+    "source_names": "x7136w",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[248],
-    target: nodes[305]
+    "source": nodes[248],
+    "target": nodes[305],
+    "source_names": "x7136w",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[249],
-    target: nodes[305]
+    "source": nodes[249],
+    "target": nodes[305],
+    "source_names": "k5546z",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[250],
-    target: nodes[304]
+    "source": nodes[250],
+    "target": nodes[304],
+    "source_names": "e3717l",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[251],
-    target: nodes[302]
+    "source": nodes[251],
+    "target": nodes[302],
+    "source_names": "k5546z",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[252],
-    target: nodes[305]
+    "source": nodes[252],
+    "target": nodes[305],
+    "source_names": "e3717l",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[253],
-    target: nodes[305]
+    "source": nodes[253],
+    "target": nodes[305],
+    "source_names": "k5546z",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[254],
-    target: nodes[303]
+    "source": nodes[254],
+    "target": nodes[303],
+    "source_names": "k5546z",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[255],
-    target: nodes[302]
+    "source": nodes[255],
+    "target": nodes[302],
+    "source_names": "k5546z",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[256],
-    target: nodes[305]
+    "source": nodes[256],
+    "target": nodes[305],
+    "source_names": "g7173d",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[257],
-    target: nodes[302]
+    "source": nodes[257],
+    "target": nodes[302],
+    "source_names": "d8454u",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[258],
-    target: nodes[303]
+    "source": nodes[258],
+    "target": nodes[303],
+    "source_names": "d8454u",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[259],
-    target: nodes[304]
+    "source": nodes[259],
+    "target": nodes[304],
+    "source_names": "f9262c",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[260],
-    target: nodes[302]
+    "source": nodes[260],
+    "target": nodes[302],
+    "source_names": "g7173d",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[261],
-    target: nodes[302]
+    "source": nodes[261],
+    "target": nodes[302],
+    "source_names": "o3158y",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[262],
-    target: nodes[305]
+    "source": nodes[262],
+    "target": nodes[305],
+    "source_names": "o3158y",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[263],
-    target: nodes[305]
+    "source": nodes[263],
+    "target": nodes[305],
+    "source_names": "s9205g",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[264],
-    target: nodes[305]
+    "source": nodes[264],
+    "target": nodes[305],
+    "source_names": "h6556f",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[265],
-    target: nodes[302]
+    "source": nodes[265],
+    "target": nodes[302],
+    "source_names": "l2360d",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[266],
-    target: nodes[305]
+    "source": nodes[266],
+    "target": nodes[305],
+    "source_names": "f9262c",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[267],
-    target: nodes[305]
+    "source": nodes[267],
+    "target": nodes[305],
+    "source_names": "d8454u",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[268],
-    target: nodes[302]
+    "source": nodes[268],
+    "target": nodes[302],
+    "source_names": "l4243i",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[269],
-    target: nodes[304]
+    "source": nodes[269],
+    "target": nodes[304],
+    "source_names": "r5827i",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[270],
-    target: nodes[305]
+    "source": nodes[270],
+    "target": nodes[305],
+    "source_names": "h6556f",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[271],
-    target: nodes[304]
+    "source": nodes[271],
+    "target": nodes[304],
+    "source_names": "h6556f",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[272],
-    target: nodes[302]
+    "source": nodes[272],
+    "target": nodes[302],
+    "source_names": "h6556f",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[273],
-    target: nodes[302]
+    "source": nodes[273],
+    "target": nodes[302],
+    "source_names": "d8454u",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[274],
-    target: nodes[302]
+    "source": nodes[274],
+    "target": nodes[302],
+    "source_names": "l4243i",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[275],
-    target: nodes[302]
+    "source": nodes[275],
+    "target": nodes[302],
+    "source_names": "u4176p",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[276],
-    target: nodes[303]
+    "source": nodes[276],
+    "target": nodes[303],
+    "source_names": "h6556f",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[277],
-    target: nodes[305]
+    "source": nodes[277],
+    "target": nodes[305],
+    "source_names": "w9986a",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[278],
-    target: nodes[304]
+    "source": nodes[278],
+    "target": nodes[304],
+    "source_names": "p3901e",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[279],
-    target: nodes[305]
+    "source": nodes[279],
+    "target": nodes[305],
+    "source_names": "o3158y",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[280],
-    target: nodes[305]
+    "source": nodes[280],
+    "target": nodes[305],
+    "source_names": "f9262c",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[281],
-    target: nodes[302]
+    "source": nodes[281],
+    "target": nodes[302],
+    "source_names": "h4326u",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[282],
-    target: nodes[305]
+    "source": nodes[282],
+    "target": nodes[305],
+    "source_names": "r5827i",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[283],
-    target: nodes[302]
+    "source": nodes[283],
+    "target": nodes[302],
+    "source_names": "r5827i",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[284],
-    target: nodes[303]
+    "source": nodes[284],
+    "target": nodes[303],
+    "source_names": "s8156a",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[285],
-    target: nodes[305]
+    "source": nodes[285],
+    "target": nodes[305],
+    "source_names": "h5231b",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[286],
-    target: nodes[305]
+    "source": nodes[286],
+    "target": nodes[305],
+    "source_names": "r5827i",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[287],
-    target: nodes[302]
+    "source": nodes[287],
+    "target": nodes[302],
+    "source_names": "w9986a",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[288],
-    target: nodes[305]
+    "source": nodes[288],
+    "target": nodes[305],
+    "source_names": "r5827i",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[289],
-    target: nodes[304]
+    "source": nodes[289],
+    "target": nodes[304],
+    "source_names": "s8156a",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[290],
-    target: nodes[305]
+    "source": nodes[290],
+    "target": nodes[305],
+    "source_names": "r5827i",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[291],
-    target: nodes[303]
+    "source": nodes[291],
+    "target": nodes[303],
+    "source_names": "h5231b",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[292],
-    target: nodes[305]
+    "source": nodes[292],
+    "target": nodes[305],
+    "source_names": "r5827i",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[293],
-    target: nodes[302]
+    "source": nodes[293],
+    "target": nodes[302],
+    "source_names": "r5827i",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[294],
-    target: nodes[303]
+    "source": nodes[294],
+    "target": nodes[303],
+    "source_names": "p3901e",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[295],
-    target: nodes[303]
+    "source": nodes[295],
+    "target": nodes[303],
+    "source_names": "r5827i",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[296],
-    target: nodes[302]
+    "source": nodes[296],
+    "target": nodes[302],
+    "source_names": "h5231b",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[297],
-    target: nodes[303]
+    "source": nodes[297],
+    "target": nodes[303],
+    "source_names": "p3901e",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[298],
-    target: nodes[305]
+    "source": nodes[298],
+    "target": nodes[305],
+    "source_names": "h5231b",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[299],
-    target: nodes[303]
+    "source": nodes[299],
+    "target": nodes[303],
+    "source_names": "s8156a",
+    "target_names": "erlotinib hcl"
   },
   {
-    source: nodes[300],
-    target: nodes[302]
+    "source": nodes[300],
+    "target": nodes[302],
+    "source_names": "w9986a",
+    "target_names": "bevacizumab"
   },
   {
-    source: nodes[301],
-    target: nodes[305]
+    "source": nodes[301],
+    "target": nodes[305],
+    "source_names": "h5231b",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[302],
-    target: nodes[305]
+    "source": nodes[302],
+    "target": nodes[305],
+    "source_names": "r5827i",
+    "target_names": "nivolumab"
   },
   {
-    source: nodes[303],
-    target: nodes[304]
+    "source": nodes[303],
+    "target": nodes[304],
+    "source_names": "s8156a",
+    "target_names": "axitinib"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[307]
+    "source": nodes[303],
+    "target": nodes[307],
+    "source_names": "erlotinib hcl",
+    "target_names": "academic"
   },
   {
-    source: nodes[303],
-    target: nodes[307]
+    "source": nodes[303],
+    "target": nodes[307],
+    "source_names": "erlotinib hcl",
+    "target_names": "academic"
   },
   {
-    source: nodes[303],
-    target: nodes[307]
+    "source": nodes[303],
+    "target": nodes[307],
+    "source_names": "erlotinib hcl",
+    "target_names": "academic"
   },
   {
-    source: nodes[305],
-    target: nodes[307]
+    "source": nodes[305],
+    "target": nodes[307],
+    "source_names": "nivolumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[305],
-    target: nodes[307]
+    "source": nodes[305],
+    "target": nodes[307],
+    "source_names": "nivolumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[305],
-    target: nodes[307]
+    "source": nodes[305],
+    "target": nodes[307],
+    "source_names": "nivolumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[305],
-    target: nodes[307]
+    "source": nodes[305],
+    "target": nodes[307],
+    "source_names": "nivolumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[305],
-    target: nodes[307]
+    "source": nodes[305],
+    "target": nodes[307],
+    "source_names": "nivolumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[305],
-    target: nodes[307]
+    "source": nodes[305],
+    "target": nodes[307],
+    "source_names": "nivolumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[302],
-    target: nodes[307]
+    "source": nodes[302],
+    "target": nodes[307],
+    "source_names": "bevacizumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[303],
-    target: nodes[307]
+    "source": nodes[303],
+    "target": nodes[307],
+    "source_names": "erlotinib hcl",
+    "target_names": "academic"
   },
   {
-    source: nodes[302],
-    target: nodes[307]
+    "source": nodes[302],
+    "target": nodes[307],
+    "source_names": "bevacizumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[303],
-    target: nodes[307]
+    "source": nodes[303],
+    "target": nodes[307],
+    "source_names": "erlotinib hcl",
+    "target_names": "academic"
   },
   {
-    source: nodes[303],
-    target: nodes[307]
+    "source": nodes[303],
+    "target": nodes[307],
+    "source_names": "erlotinib hcl",
+    "target_names": "academic"
   },
   {
-    source: nodes[302],
-    target: nodes[307]
+    "source": nodes[302],
+    "target": nodes[307],
+    "source_names": "bevacizumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[305],
-    target: nodes[307]
+    "source": nodes[305],
+    "target": nodes[307],
+    "source_names": "nivolumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[305],
-    target: nodes[307]
+    "source": nodes[305],
+    "target": nodes[307],
+    "source_names": "nivolumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[307]
+    "source": nodes[302],
+    "target": nodes[307],
+    "source_names": "bevacizumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[303],
-    target: nodes[307]
+    "source": nodes[303],
+    "target": nodes[307],
+    "source_names": "erlotinib hcl",
+    "target_names": "academic"
   },
   {
-    source: nodes[303],
-    target: nodes[307]
+    "source": nodes[303],
+    "target": nodes[307],
+    "source_names": "erlotinib hcl",
+    "target_names": "academic"
   },
   {
-    source: nodes[302],
-    target: nodes[307]
+    "source": nodes[302],
+    "target": nodes[307],
+    "source_names": "bevacizumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[302],
-    target: nodes[307]
+    "source": nodes[302],
+    "target": nodes[307],
+    "source_names": "bevacizumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[303],
-    target: nodes[307]
+    "source": nodes[303],
+    "target": nodes[307],
+    "source_names": "erlotinib hcl",
+    "target_names": "academic"
   },
   {
-    source: nodes[305],
-    target: nodes[307]
+    "source": nodes[305],
+    "target": nodes[307],
+    "source_names": "nivolumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[303],
-    target: nodes[307]
+    "source": nodes[303],
+    "target": nodes[307],
+    "source_names": "erlotinib hcl",
+    "target_names": "academic"
   },
   {
-    source: nodes[305],
-    target: nodes[307]
+    "source": nodes[305],
+    "target": nodes[307],
+    "source_names": "nivolumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[302],
-    target: nodes[307]
+    "source": nodes[302],
+    "target": nodes[307],
+    "source_names": "bevacizumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[302],
-    target: nodes[307]
+    "source": nodes[302],
+    "target": nodes[307],
+    "source_names": "bevacizumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[304],
-    target: nodes[307]
+    "source": nodes[304],
+    "target": nodes[307],
+    "source_names": "axitinib",
+    "target_names": "academic"
   },
   {
-    source: nodes[302],
-    target: nodes[307]
+    "source": nodes[302],
+    "target": nodes[307],
+    "source_names": "bevacizumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[305],
-    target: nodes[307]
+    "source": nodes[305],
+    "target": nodes[307],
+    "source_names": "nivolumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[305],
-    target: nodes[307]
+    "source": nodes[305],
+    "target": nodes[307],
+    "source_names": "nivolumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[303],
-    target: nodes[307]
+    "source": nodes[303],
+    "target": nodes[307],
+    "source_names": "erlotinib hcl",
+    "target_names": "academic"
   },
   {
-    source: nodes[302],
-    target: nodes[307]
+    "source": nodes[302],
+    "target": nodes[307],
+    "source_names": "bevacizumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[305],
-    target: nodes[307]
+    "source": nodes[305],
+    "target": nodes[307],
+    "source_names": "nivolumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[302],
-    target: nodes[307]
+    "source": nodes[302],
+    "target": nodes[307],
+    "source_names": "bevacizumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[305],
-    target: nodes[307]
+    "source": nodes[305],
+    "target": nodes[307],
+    "source_names": "nivolumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[305],
-    target: nodes[307]
+    "source": nodes[305],
+    "target": nodes[307],
+    "source_names": "nivolumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[303],
-    target: nodes[307]
+    "source": nodes[303],
+    "target": nodes[307],
+    "source_names": "erlotinib hcl",
+    "target_names": "academic"
   },
   {
-    source: nodes[303],
-    target: nodes[307]
+    "source": nodes[303],
+    "target": nodes[307],
+    "source_names": "erlotinib hcl",
+    "target_names": "academic"
   },
   {
-    source: nodes[302],
-    target: nodes[307]
+    "source": nodes[302],
+    "target": nodes[307],
+    "source_names": "bevacizumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[305],
-    target: nodes[307]
+    "source": nodes[305],
+    "target": nodes[307],
+    "source_names": "nivolumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[305],
-    target: nodes[307]
+    "source": nodes[305],
+    "target": nodes[307],
+    "source_names": "nivolumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[302],
-    target: nodes[307]
+    "source": nodes[302],
+    "target": nodes[307],
+    "source_names": "bevacizumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[303],
-    target: nodes[307]
+    "source": nodes[303],
+    "target": nodes[307],
+    "source_names": "erlotinib hcl",
+    "target_names": "academic"
   },
   {
-    source: nodes[305],
-    target: nodes[307]
+    "source": nodes[305],
+    "target": nodes[307],
+    "source_names": "nivolumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[305],
-    target: nodes[307]
+    "source": nodes[305],
+    "target": nodes[307],
+    "source_names": "nivolumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[302],
-    target: nodes[307]
+    "source": nodes[302],
+    "target": nodes[307],
+    "source_names": "bevacizumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[302],
-    target: nodes[307]
+    "source": nodes[302],
+    "target": nodes[307],
+    "source_names": "bevacizumab",
+    "target_names": "academic"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[303],
-    target: nodes[306]
+    "source": nodes[303],
+    "target": nodes[306],
+    "source_names": "erlotinib hcl",
+    "target_names": "community"
   },
   {
-    source: nodes[302],
-    target: nodes[306]
+    "source": nodes[302],
+    "target": nodes[306],
+    "source_names": "bevacizumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[305],
-    target: nodes[306]
+    "source": nodes[305],
+    "target": nodes[306],
+    "source_names": "nivolumab",
+    "target_names": "community"
   },
   {
-    source: nodes[304],
-    target: nodes[306]
+    "source": nodes[304],
+    "target": nodes[306],
+    "source_names": "axitinib",
+    "target_names": "community"
   },
   {
-    source: nodes[306],
-    target: nodes[0]
+    "source": nodes[306],
+    "target": nodes[0],
+    "source_names": "community",
+    "target_names": "a9913g"
   },
   {
-    source: nodes[306],
-    target: nodes[1]
+    "source": nodes[306],
+    "target": nodes[1],
+    "source_names": "community",
+    "target_names": "a6230g"
   },
   {
-    source: nodes[306],
-    target: nodes[2]
+    "source": nodes[306],
+    "target": nodes[2],
+    "source_names": "community",
+    "target_names": "a6230g"
   },
   {
-    source: nodes[306],
-    target: nodes[3]
+    "source": nodes[306],
+    "target": nodes[3],
+    "source_names": "community",
+    "target_names": "a9913g"
   },
   {
-    source: nodes[306],
-    target: nodes[4]
+    "source": nodes[306],
+    "target": nodes[4],
+    "source_names": "community",
+    "target_names": "j8916h"
   },
   {
-    source: nodes[306],
-    target: nodes[5]
+    "source": nodes[306],
+    "target": nodes[5],
+    "source_names": "community",
+    "target_names": "j8916h"
   },
   {
-    source: nodes[306],
-    target: nodes[6]
+    "source": nodes[306],
+    "target": nodes[6],
+    "source_names": "community",
+    "target_names": "j8916h"
   },
   {
-    source: nodes[306],
-    target: nodes[7]
+    "source": nodes[306],
+    "target": nodes[7],
+    "source_names": "community",
+    "target_names": "a9913g"
   },
   {
-    source: nodes[306],
-    target: nodes[8]
+    "source": nodes[306],
+    "target": nodes[8],
+    "source_names": "community",
+    "target_names": "a9913g"
   },
   {
-    source: nodes[306],
-    target: nodes[9]
+    "source": nodes[306],
+    "target": nodes[9],
+    "source_names": "community",
+    "target_names": "j8916h"
   },
   {
-    source: nodes[306],
-    target: nodes[10]
+    "source": nodes[306],
+    "target": nodes[10],
+    "source_names": "community",
+    "target_names": "a6230g"
   },
   {
-    source: nodes[306],
-    target: nodes[11]
+    "source": nodes[306],
+    "target": nodes[11],
+    "source_names": "community",
+    "target_names": "s9417f"
   },
   {
-    source: nodes[306],
-    target: nodes[12]
+    "source": nodes[306],
+    "target": nodes[12],
+    "source_names": "community",
+    "target_names": "a9913g"
   },
   {
-    source: nodes[306],
-    target: nodes[13]
+    "source": nodes[306],
+    "target": nodes[13],
+    "source_names": "community",
+    "target_names": "d4170t"
   },
   {
-    source: nodes[306],
-    target: nodes[14]
+    "source": nodes[306],
+    "target": nodes[14],
+    "source_names": "community",
+    "target_names": "j8916h"
   },
   {
-    source: nodes[306],
-    target: nodes[15]
+    "source": nodes[306],
+    "target": nodes[15],
+    "source_names": "community",
+    "target_names": "t6780o"
   },
   {
-    source: nodes[306],
-    target: nodes[16]
+    "source": nodes[306],
+    "target": nodes[16],
+    "source_names": "community",
+    "target_names": "l2680i"
   },
   {
-    source: nodes[306],
-    target: nodes[17]
+    "source": nodes[306],
+    "target": nodes[17],
+    "source_names": "community",
+    "target_names": "j8916h"
   },
   {
-    source: nodes[306],
-    target: nodes[18]
+    "source": nodes[306],
+    "target": nodes[18],
+    "source_names": "community",
+    "target_names": "t9815h"
   },
   {
-    source: nodes[306],
-    target: nodes[19]
+    "source": nodes[306],
+    "target": nodes[19],
+    "source_names": "community",
+    "target_names": "t8292i"
   },
   {
-    source: nodes[306],
-    target: nodes[20]
+    "source": nodes[306],
+    "target": nodes[20],
+    "source_names": "community",
+    "target_names": "t6780o"
   },
   {
-    source: nodes[306],
-    target: nodes[21]
+    "source": nodes[306],
+    "target": nodes[21],
+    "source_names": "community",
+    "target_names": "a9913g"
   },
   {
-    source: nodes[306],
-    target: nodes[22]
+    "source": nodes[306],
+    "target": nodes[22],
+    "source_names": "community",
+    "target_names": "s4096r"
   },
   {
-    source: nodes[306],
-    target: nodes[23]
+    "source": nodes[306],
+    "target": nodes[23],
+    "source_names": "community",
+    "target_names": "l2680i"
   },
   {
-    source: nodes[306],
-    target: nodes[24]
+    "source": nodes[306],
+    "target": nodes[24],
+    "source_names": "community",
+    "target_names": "l2680i"
   },
   {
-    source: nodes[306],
-    target: nodes[25]
+    "source": nodes[306],
+    "target": nodes[25],
+    "source_names": "community",
+    "target_names": "s9417f"
   },
   {
-    source: nodes[306],
-    target: nodes[26]
+    "source": nodes[306],
+    "target": nodes[26],
+    "source_names": "community",
+    "target_names": "t9815h"
   },
   {
-    source: nodes[306],
-    target: nodes[27]
+    "source": nodes[306],
+    "target": nodes[27],
+    "source_names": "community",
+    "target_names": "n7621g"
   },
   {
-    source: nodes[306],
-    target: nodes[28]
+    "source": nodes[306],
+    "target": nodes[28],
+    "source_names": "community",
+    "target_names": "w5950u"
   },
   {
-    source: nodes[306],
-    target: nodes[29]
+    "source": nodes[306],
+    "target": nodes[29],
+    "source_names": "community",
+    "target_names": "i2723u"
   },
   {
-    source: nodes[306],
-    target: nodes[30]
+    "source": nodes[306],
+    "target": nodes[30],
+    "source_names": "community",
+    "target_names": "y2942r"
   },
   {
-    source: nodes[306],
-    target: nodes[31]
+    "source": nodes[306],
+    "target": nodes[31],
+    "source_names": "community",
+    "target_names": "w5950u"
   },
   {
-    source: nodes[306],
-    target: nodes[32]
+    "source": nodes[306],
+    "target": nodes[32],
+    "source_names": "community",
+    "target_names": "t6780o"
   },
   {
-    source: nodes[306],
-    target: nodes[33]
+    "source": nodes[306],
+    "target": nodes[33],
+    "source_names": "community",
+    "target_names": "w5950u"
   },
   {
-    source: nodes[306],
-    target: nodes[34]
+    "source": nodes[306],
+    "target": nodes[34],
+    "source_names": "community",
+    "target_names": "s9417f"
   },
   {
-    source: nodes[306],
-    target: nodes[35]
+    "source": nodes[306],
+    "target": nodes[35],
+    "source_names": "community",
+    "target_names": "t9815h"
   },
   {
-    source: nodes[306],
-    target: nodes[36]
+    "source": nodes[306],
+    "target": nodes[36],
+    "source_names": "community",
+    "target_names": "s9417f"
   },
   {
-    source: nodes[306],
-    target: nodes[37]
+    "source": nodes[306],
+    "target": nodes[37],
+    "source_names": "community",
+    "target_names": "s4096r"
   },
   {
-    source: nodes[306],
-    target: nodes[38]
+    "source": nodes[306],
+    "target": nodes[38],
+    "source_names": "community",
+    "target_names": "n7621g"
   },
   {
-    source: nodes[306],
-    target: nodes[39]
+    "source": nodes[306],
+    "target": nodes[39],
+    "source_names": "community",
+    "target_names": "n7621g"
   },
   {
-    source: nodes[306],
-    target: nodes[40]
+    "source": nodes[306],
+    "target": nodes[40],
+    "source_names": "community",
+    "target_names": "g3574k"
   },
   {
-    source: nodes[306],
-    target: nodes[41]
+    "source": nodes[306],
+    "target": nodes[41],
+    "source_names": "community",
+    "target_names": "g3574k"
   },
   {
-    source: nodes[306],
-    target: nodes[42]
+    "source": nodes[306],
+    "target": nodes[42],
+    "source_names": "community",
+    "target_names": "s3521i"
   },
   {
-    source: nodes[306],
-    target: nodes[43]
+    "source": nodes[306],
+    "target": nodes[43],
+    "source_names": "community",
+    "target_names": "s3521i"
   },
   {
-    source: nodes[306],
-    target: nodes[44]
+    "source": nodes[306],
+    "target": nodes[44],
+    "source_names": "community",
+    "target_names": "s3521i"
   },
   {
-    source: nodes[306],
-    target: nodes[45]
+    "source": nodes[306],
+    "target": nodes[45],
+    "source_names": "community",
+    "target_names": "r4355j"
   },
   {
-    source: nodes[306],
-    target: nodes[46]
+    "source": nodes[306],
+    "target": nodes[46],
+    "source_names": "community",
+    "target_names": "r4355j"
   },
   {
-    source: nodes[306],
-    target: nodes[47]
+    "source": nodes[306],
+    "target": nodes[47],
+    "source_names": "community",
+    "target_names": "w3752a"
   },
   {
-    source: nodes[306],
-    target: nodes[48]
+    "source": nodes[306],
+    "target": nodes[48],
+    "source_names": "community",
+    "target_names": "m2177s"
   },
   {
-    source: nodes[306],
-    target: nodes[49]
+    "source": nodes[306],
+    "target": nodes[49],
+    "source_names": "community",
+    "target_names": "s3521i"
   },
   {
-    source: nodes[306],
-    target: nodes[50]
+    "source": nodes[306],
+    "target": nodes[50],
+    "source_names": "community",
+    "target_names": "w3752a"
   },
   {
-    source: nodes[306],
-    target: nodes[51]
+    "source": nodes[306],
+    "target": nodes[51],
+    "source_names": "community",
+    "target_names": "m2177s"
   },
   {
-    source: nodes[306],
-    target: nodes[52]
+    "source": nodes[306],
+    "target": nodes[52],
+    "source_names": "community",
+    "target_names": "w3752a"
   },
   {
-    source: nodes[306],
-    target: nodes[53]
+    "source": nodes[306],
+    "target": nodes[53],
+    "source_names": "community",
+    "target_names": "g3574k"
   },
   {
-    source: nodes[306],
-    target: nodes[54]
+    "source": nodes[306],
+    "target": nodes[54],
+    "source_names": "community",
+    "target_names": "n8228o"
   },
   {
-    source: nodes[306],
-    target: nodes[55]
+    "source": nodes[306],
+    "target": nodes[55],
+    "source_names": "community",
+    "target_names": "g8081s"
   },
   {
-    source: nodes[306],
-    target: nodes[56]
+    "source": nodes[306],
+    "target": nodes[56],
+    "source_names": "community",
+    "target_names": "g8081s"
   },
   {
-    source: nodes[306],
-    target: nodes[57]
+    "source": nodes[306],
+    "target": nodes[57],
+    "source_names": "community",
+    "target_names": "j5727w"
   },
   {
-    source: nodes[306],
-    target: nodes[58]
+    "source": nodes[306],
+    "target": nodes[58],
+    "source_names": "community",
+    "target_names": "g8081s"
   },
   {
-    source: nodes[306],
-    target: nodes[59]
+    "source": nodes[306],
+    "target": nodes[59],
+    "source_names": "community",
+    "target_names": "s3521i"
   },
   {
-    source: nodes[306],
-    target: nodes[60]
+    "source": nodes[306],
+    "target": nodes[60],
+    "source_names": "community",
+    "target_names": "s3521i"
   },
   {
-    source: nodes[306],
-    target: nodes[61]
+    "source": nodes[306],
+    "target": nodes[61],
+    "source_names": "community",
+    "target_names": "g8081s"
   },
   {
-    source: nodes[306],
-    target: nodes[62]
+    "source": nodes[306],
+    "target": nodes[62],
+    "source_names": "community",
+    "target_names": "w3752a"
   },
   {
-    source: nodes[306],
-    target: nodes[63]
+    "source": nodes[306],
+    "target": nodes[63],
+    "source_names": "community",
+    "target_names": "t8223p"
   },
   {
-    source: nodes[306],
-    target: nodes[64]
+    "source": nodes[306],
+    "target": nodes[64],
+    "source_names": "community",
+    "target_names": "t8223p"
   },
   {
-    source: nodes[306],
-    target: nodes[65]
+    "source": nodes[306],
+    "target": nodes[65],
+    "source_names": "community",
+    "target_names": "m2177s"
   },
   {
-    source: nodes[306],
-    target: nodes[66]
+    "source": nodes[306],
+    "target": nodes[66],
+    "source_names": "community",
+    "target_names": "t8223p"
   },
   {
-    source: nodes[306],
-    target: nodes[67]
+    "source": nodes[306],
+    "target": nodes[67],
+    "source_names": "community",
+    "target_names": "p9302d"
   },
   {
-    source: nodes[306],
-    target: nodes[68]
+    "source": nodes[306],
+    "target": nodes[68],
+    "source_names": "community",
+    "target_names": "f3078p"
   },
   {
-    source: nodes[306],
-    target: nodes[69]
+    "source": nodes[306],
+    "target": nodes[69],
+    "source_names": "community",
+    "target_names": "z7390g"
   },
   {
-    source: nodes[306],
-    target: nodes[70]
+    "source": nodes[306],
+    "target": nodes[70],
+    "source_names": "community",
+    "target_names": "a6991u"
   },
   {
-    source: nodes[306],
-    target: nodes[71]
+    "source": nodes[306],
+    "target": nodes[71],
+    "source_names": "community",
+    "target_names": "d2518r"
   },
   {
-    source: nodes[306],
-    target: nodes[72]
+    "source": nodes[306],
+    "target": nodes[72],
+    "source_names": "community",
+    "target_names": "t9509b"
   },
   {
-    source: nodes[306],
-    target: nodes[73]
+    "source": nodes[306],
+    "target": nodes[73],
+    "source_names": "community",
+    "target_names": "e6994f"
   },
   {
-    source: nodes[306],
-    target: nodes[74]
+    "source": nodes[306],
+    "target": nodes[74],
+    "source_names": "community",
+    "target_names": "d2518r"
   },
   {
-    source: nodes[306],
-    target: nodes[75]
+    "source": nodes[306],
+    "target": nodes[75],
+    "source_names": "community",
+    "target_names": "e6994f"
   },
   {
-    source: nodes[306],
-    target: nodes[76]
+    "source": nodes[306],
+    "target": nodes[76],
+    "source_names": "community",
+    "target_names": "h8801t"
   },
   {
-    source: nodes[306],
-    target: nodes[77]
+    "source": nodes[306],
+    "target": nodes[77],
+    "source_names": "community",
+    "target_names": "b7786f"
   },
   {
-    source: nodes[306],
-    target: nodes[78]
+    "source": nodes[306],
+    "target": nodes[78],
+    "source_names": "community",
+    "target_names": "d2518r"
   },
   {
-    source: nodes[306],
-    target: nodes[79]
+    "source": nodes[306],
+    "target": nodes[79],
+    "source_names": "community",
+    "target_names": "e6994f"
   },
   {
-    source: nodes[306],
-    target: nodes[80]
+    "source": nodes[306],
+    "target": nodes[80],
+    "source_names": "community",
+    "target_names": "y7132e"
   },
   {
-    source: nodes[306],
-    target: nodes[81]
+    "source": nodes[306],
+    "target": nodes[81],
+    "source_names": "community",
+    "target_names": "e6994f"
   },
   {
-    source: nodes[306],
-    target: nodes[82]
+    "source": nodes[306],
+    "target": nodes[82],
+    "source_names": "community",
+    "target_names": "g3064e"
   },
   {
-    source: nodes[306],
-    target: nodes[83]
+    "source": nodes[306],
+    "target": nodes[83],
+    "source_names": "community",
+    "target_names": "h8801t"
   },
   {
-    source: nodes[306],
-    target: nodes[84]
+    "source": nodes[306],
+    "target": nodes[84],
+    "source_names": "community",
+    "target_names": "b7786f"
   },
   {
-    source: nodes[306],
-    target: nodes[85]
+    "source": nodes[306],
+    "target": nodes[85],
+    "source_names": "community",
+    "target_names": "b7786f"
   },
   {
-    source: nodes[306],
-    target: nodes[86]
+    "source": nodes[306],
+    "target": nodes[86],
+    "source_names": "community",
+    "target_names": "e6994f"
   },
   {
-    source: nodes[306],
-    target: nodes[87]
+    "source": nodes[306],
+    "target": nodes[87],
+    "source_names": "community",
+    "target_names": "w7942e"
   },
   {
-    source: nodes[306],
-    target: nodes[88]
+    "source": nodes[306],
+    "target": nodes[88],
+    "source_names": "community",
+    "target_names": "h8801t"
   },
   {
-    source: nodes[306],
-    target: nodes[89]
+    "source": nodes[306],
+    "target": nodes[89],
+    "source_names": "community",
+    "target_names": "o5515x"
   },
   {
-    source: nodes[306],
-    target: nodes[90]
+    "source": nodes[306],
+    "target": nodes[90],
+    "source_names": "community",
+    "target_names": "o5515x"
   },
   {
-    source: nodes[306],
-    target: nodes[91]
+    "source": nodes[306],
+    "target": nodes[91],
+    "source_names": "community",
+    "target_names": "t9509b"
   },
   {
-    source: nodes[306],
-    target: nodes[92]
+    "source": nodes[306],
+    "target": nodes[92],
+    "source_names": "community",
+    "target_names": "w7942e"
   },
   {
-    source: nodes[306],
-    target: nodes[93]
+    "source": nodes[306],
+    "target": nodes[93],
+    "source_names": "community",
+    "target_names": "g3064e"
   },
   {
-    source: nodes[306],
-    target: nodes[94]
+    "source": nodes[306],
+    "target": nodes[94],
+    "source_names": "community",
+    "target_names": "y7132e"
   },
   {
-    source: nodes[306],
-    target: nodes[95]
+    "source": nodes[306],
+    "target": nodes[95],
+    "source_names": "community",
+    "target_names": "t9509b"
   },
   {
-    source: nodes[306],
-    target: nodes[96]
+    "source": nodes[306],
+    "target": nodes[96],
+    "source_names": "community",
+    "target_names": "r7063r"
   },
   {
-    source: nodes[306],
-    target: nodes[97]
+    "source": nodes[306],
+    "target": nodes[97],
+    "source_names": "community",
+    "target_names": "e6994f"
   },
   {
-    source: nodes[306],
-    target: nodes[98]
+    "source": nodes[306],
+    "target": nodes[98],
+    "source_names": "community",
+    "target_names": "e6994f"
   },
   {
-    source: nodes[306],
-    target: nodes[99]
+    "source": nodes[306],
+    "target": nodes[99],
+    "source_names": "community",
+    "target_names": "t9509b"
   },
   {
-    source: nodes[306],
-    target: nodes[100]
+    "source": nodes[306],
+    "target": nodes[100],
+    "source_names": "community",
+    "target_names": "b7786f"
   },
   {
-    source: nodes[306],
-    target: nodes[101]
+    "source": nodes[306],
+    "target": nodes[101],
+    "source_names": "community",
+    "target_names": "h8801t"
   },
   {
-    source: nodes[306],
-    target: nodes[102]
+    "source": nodes[306],
+    "target": nodes[102],
+    "source_names": "community",
+    "target_names": "w7942e"
   },
   {
-    source: nodes[306],
-    target: nodes[103]
+    "source": nodes[306],
+    "target": nodes[103],
+    "source_names": "community",
+    "target_names": "h8801t"
   },
   {
-    source: nodes[306],
-    target: nodes[104]
+    "source": nodes[306],
+    "target": nodes[104],
+    "source_names": "community",
+    "target_names": "j7804r"
   },
   {
-    source: nodes[306],
-    target: nodes[105]
+    "source": nodes[306],
+    "target": nodes[105],
+    "source_names": "community",
+    "target_names": "j7804r"
   },
   {
-    source: nodes[306],
-    target: nodes[106]
+    "source": nodes[306],
+    "target": nodes[106],
+    "source_names": "community",
+    "target_names": "y7132e"
   },
   {
-    source: nodes[306],
-    target: nodes[107]
+    "source": nodes[306],
+    "target": nodes[107],
+    "source_names": "community",
+    "target_names": "g3064e"
   },
   {
-    source: nodes[306],
-    target: nodes[108]
+    "source": nodes[306],
+    "target": nodes[108],
+    "source_names": "community",
+    "target_names": "t9509b"
   },
   {
-    source: nodes[306],
-    target: nodes[109]
+    "source": nodes[306],
+    "target": nodes[109],
+    "source_names": "community",
+    "target_names": "e6994f"
   },
   {
-    source: nodes[306],
-    target: nodes[110]
+    "source": nodes[306],
+    "target": nodes[110],
+    "source_names": "community",
+    "target_names": "e6994f"
   },
   {
-    source: nodes[306],
-    target: nodes[111]
+    "source": nodes[306],
+    "target": nodes[111],
+    "source_names": "community",
+    "target_names": "j7804r"
   },
   {
-    source: nodes[306],
-    target: nodes[112]
+    "source": nodes[306],
+    "target": nodes[112],
+    "source_names": "community",
+    "target_names": "g3064e"
   },
   {
-    source: nodes[306],
-    target: nodes[113]
+    "source": nodes[306],
+    "target": nodes[113],
+    "source_names": "community",
+    "target_names": "y7132e"
   },
   {
-    source: nodes[306],
-    target: nodes[114]
+    "source": nodes[306],
+    "target": nodes[114],
+    "source_names": "community",
+    "target_names": "b7786f"
   },
   {
-    source: nodes[307],
-    target: nodes[115]
+    "source": nodes[307],
+    "target": nodes[115],
+    "source_names": "academic",
+    "target_names": "y4215o"
   },
   {
-    source: nodes[307],
-    target: nodes[116]
+    "source": nodes[307],
+    "target": nodes[116],
+    "source_names": "academic",
+    "target_names": "u5435d"
   },
   {
-    source: nodes[307],
-    target: nodes[117]
+    "source": nodes[307],
+    "target": nodes[117],
+    "source_names": "academic",
+    "target_names": "y4215o"
   },
   {
-    source: nodes[307],
-    target: nodes[118]
+    "source": nodes[307],
+    "target": nodes[118],
+    "source_names": "academic",
+    "target_names": "u5435d"
   },
   {
-    source: nodes[307],
-    target: nodes[119]
+    "source": nodes[307],
+    "target": nodes[119],
+    "source_names": "academic",
+    "target_names": "u5435d"
   },
   {
-    source: nodes[307],
-    target: nodes[120]
+    "source": nodes[307],
+    "target": nodes[120],
+    "source_names": "academic",
+    "target_names": "g5736q"
   },
   {
-    source: nodes[307],
-    target: nodes[121]
+    "source": nodes[307],
+    "target": nodes[121],
+    "source_names": "academic",
+    "target_names": "a7481m"
   },
   {
-    source: nodes[307],
-    target: nodes[122]
+    "source": nodes[307],
+    "target": nodes[122],
+    "source_names": "academic",
+    "target_names": "u5435d"
   },
   {
-    source: nodes[307],
-    target: nodes[123]
+    "source": nodes[307],
+    "target": nodes[123],
+    "source_names": "academic",
+    "target_names": "b8717j"
   },
   {
-    source: nodes[307],
-    target: nodes[124]
+    "source": nodes[307],
+    "target": nodes[124],
+    "source_names": "academic",
+    "target_names": "n9925d"
   },
   {
-    source: nodes[307],
-    target: nodes[125]
+    "source": nodes[307],
+    "target": nodes[125],
+    "source_names": "academic",
+    "target_names": "g3471j"
   },
   {
-    source: nodes[307],
-    target: nodes[126]
+    "source": nodes[307],
+    "target": nodes[126],
+    "source_names": "academic",
+    "target_names": "n9925d"
   },
   {
-    source: nodes[307],
-    target: nodes[127]
+    "source": nodes[307],
+    "target": nodes[127],
+    "source_names": "academic",
+    "target_names": "n9925d"
   },
   {
-    source: nodes[307],
-    target: nodes[128]
+    "source": nodes[307],
+    "target": nodes[128],
+    "source_names": "academic",
+    "target_names": "g3471j"
   },
   {
-    source: nodes[307],
-    target: nodes[129]
+    "source": nodes[307],
+    "target": nodes[129],
+    "source_names": "academic",
+    "target_names": "g3471j"
   },
   {
-    source: nodes[307],
-    target: nodes[130]
+    "source": nodes[307],
+    "target": nodes[130],
+    "source_names": "academic",
+    "target_names": "e6354h"
   },
   {
-    source: nodes[307],
-    target: nodes[131]
+    "source": nodes[307],
+    "target": nodes[131],
+    "source_names": "academic",
+    "target_names": "e6354h"
   },
   {
-    source: nodes[306],
-    target: nodes[132]
+    "source": nodes[306],
+    "target": nodes[132],
+    "source_names": "community",
+    "target_names": "o6770p"
   },
   {
-    source: nodes[306],
-    target: nodes[133]
+    "source": nodes[306],
+    "target": nodes[133],
+    "source_names": "community",
+    "target_names": "e2667q"
   },
   {
-    source: nodes[306],
-    target: nodes[134]
+    "source": nodes[306],
+    "target": nodes[134],
+    "source_names": "community",
+    "target_names": "d7586h"
   },
   {
-    source: nodes[306],
-    target: nodes[135]
+    "source": nodes[306],
+    "target": nodes[135],
+    "source_names": "community",
+    "target_names": "d7586h"
   },
   {
-    source: nodes[306],
-    target: nodes[137]
+    "source": nodes[306],
+    "target": nodes[137],
+    "source_names": "community",
+    "target_names": "e2667q"
   },
   {
-    source: nodes[306],
-    target: nodes[138]
+    "source": nodes[306],
+    "target": nodes[138],
+    "source_names": "community",
+    "target_names": "e2667q"
   },
   {
-    source: nodes[306],
-    target: nodes[140]
+    "source": nodes[306],
+    "target": nodes[140],
+    "source_names": "community",
+    "target_names": "h8214l"
   },
   {
-    source: nodes[306],
-    target: nodes[141]
+    "source": nodes[306],
+    "target": nodes[141],
+    "source_names": "community",
+    "target_names": "d7586h"
   },
   {
-    source: nodes[306],
-    target: nodes[142]
+    "source": nodes[306],
+    "target": nodes[142],
+    "source_names": "community",
+    "target_names": "5402v"
   },
   {
-    source: nodes[306],
-    target: nodes[143]
+    "source": nodes[306],
+    "target": nodes[143],
+    "source_names": "community",
+    "target_names": "5402v"
   },
   {
-    source: nodes[306],
-    target: nodes[144]
+    "source": nodes[306],
+    "target": nodes[144],
+    "source_names": "community",
+    "target_names": "a3169y"
   },
   {
-    source: nodes[306],
-    target: nodes[145]
+    "source": nodes[306],
+    "target": nodes[145],
+    "source_names": "community",
+    "target_names": "a3169y"
   },
   {
-    source: nodes[306],
-    target: nodes[146]
+    "source": nodes[306],
+    "target": nodes[146],
+    "source_names": "community",
+    "target_names": "a3169y"
   },
   {
-    source: nodes[306],
-    target: nodes[147]
+    "source": nodes[306],
+    "target": nodes[147],
+    "source_names": "community",
+    "target_names": "a3169y"
   },
   {
-    source: nodes[306],
-    target: nodes[148]
+    "source": nodes[306],
+    "target": nodes[148],
+    "source_names": "community",
+    "target_names": "c5562s"
   },
   {
-    source: nodes[306],
-    target: nodes[149]
+    "source": nodes[306],
+    "target": nodes[149],
+    "source_names": "community",
+    "target_names": "e8039w"
   },
   {
-    source: nodes[306],
-    target: nodes[150]
+    "source": nodes[306],
+    "target": nodes[150],
+    "source_names": "community",
+    "target_names": "d9301s"
   },
   {
-    source: nodes[306],
-    target: nodes[151]
+    "source": nodes[306],
+    "target": nodes[151],
+    "source_names": "community",
+    "target_names": "d9301s"
   },
   {
-    source: nodes[306],
-    target: nodes[152]
+    "source": nodes[306],
+    "target": nodes[152],
+    "source_names": "community",
+    "target_names": "d9301s"
   },
   {
-    source: nodes[306],
-    target: nodes[153]
+    "source": nodes[306],
+    "target": nodes[153],
+    "source_names": "community",
+    "target_names": "d9750n"
   },
   {
-    source: nodes[306],
-    target: nodes[154]
+    "source": nodes[306],
+    "target": nodes[154],
+    "source_names": "community",
+    "target_names": "d9750n"
   },
   {
-    source: nodes[306],
-    target: nodes[155]
+    "source": nodes[306],
+    "target": nodes[155],
+    "source_names": "community",
+    "target_names": "d9750n"
   },
   {
-    source: nodes[306],
-    target: nodes[156]
+    "source": nodes[306],
+    "target": nodes[156],
+    "source_names": "community",
+    "target_names": "d9750n"
   },
   {
-    source: nodes[306],
-    target: nodes[157]
+    "source": nodes[306],
+    "target": nodes[157],
+    "source_names": "community",
+    "target_names": "d9750n"
   },
   {
-    source: nodes[306],
-    target: nodes[158]
+    "source": nodes[306],
+    "target": nodes[158],
+    "source_names": "community",
+    "target_names": "k3464g"
   },
   {
-    source: nodes[306],
-    target: nodes[159]
+    "source": nodes[306],
+    "target": nodes[159],
+    "source_names": "community",
+    "target_names": "e8039w"
   },
   {
-    source: nodes[306],
-    target: nodes[160]
+    "source": nodes[306],
+    "target": nodes[160],
+    "source_names": "community",
+    "target_names": "e8039w"
   },
   {
-    source: nodes[306],
-    target: nodes[161]
+    "source": nodes[306],
+    "target": nodes[161],
+    "source_names": "community",
+    "target_names": "e8039w"
   },
   {
-    source: nodes[306],
-    target: nodes[162]
+    "source": nodes[306],
+    "target": nodes[162],
+    "source_names": "community",
+    "target_names": "c5562s"
   },
   {
-    source: nodes[306],
-    target: nodes[163]
+    "source": nodes[306],
+    "target": nodes[163],
+    "source_names": "community",
+    "target_names": "c5562s"
   },
   {
-    source: nodes[306],
-    target: nodes[164]
+    "source": nodes[306],
+    "target": nodes[164],
+    "source_names": "community",
+    "target_names": "c5562s"
   },
   {
-    source: nodes[306],
-    target: nodes[165]
+    "source": nodes[306],
+    "target": nodes[165],
+    "source_names": "community",
+    "target_names": "c5562s"
   },
   {
-    source: nodes[306],
-    target: nodes[166]
+    "source": nodes[306],
+    "target": nodes[166],
+    "source_names": "community",
+    "target_names": "c5562s"
   },
   {
-    source: nodes[306],
-    target: nodes[167]
+    "source": nodes[306],
+    "target": nodes[167],
+    "source_names": "community",
+    "target_names": "c5562s"
   },
   {
-    source: nodes[306],
-    target: nodes[168]
+    "source": nodes[306],
+    "target": nodes[168],
+    "source_names": "community",
+    "target_names": "5402v"
   },
   {
-    source: nodes[306],
-    target: nodes[169]
+    "source": nodes[306],
+    "target": nodes[169],
+    "source_names": "community",
+    "target_names": "c5562s"
   },
   {
-    source: nodes[306],
-    target: nodes[170]
+    "source": nodes[306],
+    "target": nodes[170],
+    "source_names": "community",
+    "target_names": "c5562s"
   },
   {
-    source: nodes[306],
-    target: nodes[171]
+    "source": nodes[306],
+    "target": nodes[171],
+    "source_names": "community",
+    "target_names": "c5562s"
   },
   {
-    source: nodes[306],
-    target: nodes[172]
+    "source": nodes[306],
+    "target": nodes[172],
+    "source_names": "community",
+    "target_names": "c5562s"
   },
   {
-    source: nodes[306],
-    target: nodes[173]
+    "source": nodes[306],
+    "target": nodes[173],
+    "source_names": "community",
+    "target_names": "c5562s"
   },
   {
-    source: nodes[306],
-    target: nodes[174]
+    "source": nodes[306],
+    "target": nodes[174],
+    "source_names": "community",
+    "target_names": "c5562s"
   },
   {
-    source: nodes[306],
-    target: nodes[175]
+    "source": nodes[306],
+    "target": nodes[175],
+    "source_names": "community",
+    "target_names": "e3260h"
   },
   {
-    source: nodes[306],
-    target: nodes[176]
+    "source": nodes[306],
+    "target": nodes[176],
+    "source_names": "community",
+    "target_names": "e3260h"
   },
   {
-    source: nodes[306],
-    target: nodes[177]
+    "source": nodes[306],
+    "target": nodes[177],
+    "source_names": "community",
+    "target_names": "f2855t"
   },
   {
-    source: nodes[306],
-    target: nodes[178]
+    "source": nodes[306],
+    "target": nodes[178],
+    "source_names": "community",
+    "target_names": "w2379e"
   },
   {
-    source: nodes[306],
-    target: nodes[179]
+    "source": nodes[306],
+    "target": nodes[179],
+    "source_names": "community",
+    "target_names": "n6791l"
   },
   {
-    source: nodes[306],
-    target: nodes[180]
+    "source": nodes[306],
+    "target": nodes[180],
+    "source_names": "community",
+    "target_names": "n6791l"
   },
   {
-    source: nodes[306],
-    target: nodes[181]
+    "source": nodes[306],
+    "target": nodes[181],
+    "source_names": "community",
+    "target_names": "g4372m"
   },
   {
-    source: nodes[306],
-    target: nodes[182]
+    "source": nodes[306],
+    "target": nodes[182],
+    "source_names": "community",
+    "target_names": "c5562s"
   },
   {
-    source: nodes[306],
-    target: nodes[183]
+    "source": nodes[306],
+    "target": nodes[183],
+    "source_names": "community",
+    "target_names": "c5562s"
   },
   {
-    source: nodes[306],
-    target: nodes[184]
+    "source": nodes[306],
+    "target": nodes[184],
+    "source_names": "community",
+    "target_names": "g4372m"
   },
   {
-    source: nodes[306],
-    target: nodes[185]
+    "source": nodes[306],
+    "target": nodes[185],
+    "source_names": "community",
+    "target_names": "c5562s"
   },
   {
-    source: nodes[306],
-    target: nodes[186]
+    "source": nodes[306],
+    "target": nodes[186],
+    "source_names": "community",
+    "target_names": "w2379e"
   },
   {
-    source: nodes[306],
-    target: nodes[187]
+    "source": nodes[306],
+    "target": nodes[187],
+    "source_names": "community",
+    "target_names": "g4372m"
   },
   {
-    source: nodes[306],
-    target: nodes[188]
+    "source": nodes[306],
+    "target": nodes[188],
+    "source_names": "community",
+    "target_names": "e3260h"
   },
   {
-    source: nodes[306],
-    target: nodes[189]
+    "source": nodes[306],
+    "target": nodes[189],
+    "source_names": "community",
+    "target_names": "g4372m"
   },
   {
-    source: nodes[306],
-    target: nodes[190]
+    "source": nodes[306],
+    "target": nodes[190],
+    "source_names": "community",
+    "target_names": "w2379e"
   },
   {
-    source: nodes[307],
-    target: nodes[191]
+    "source": nodes[307],
+    "target": nodes[191],
+    "source_names": "academic",
+    "target_names": "b9305v"
   },
   {
-    source: nodes[307],
-    target: nodes[192]
+    "source": nodes[307],
+    "target": nodes[192],
+    "source_names": "academic",
+    "target_names": "b9305v"
   },
   {
-    source: nodes[307],
-    target: nodes[193]
+    "source": nodes[307],
+    "target": nodes[193],
+    "source_names": "academic",
+    "target_names": "b9305v"
   },
   {
-    source: nodes[307],
-    target: nodes[194]
+    "source": nodes[307],
+    "target": nodes[194],
+    "source_names": "academic",
+    "target_names": "e6934t"
   },
   {
-    source: nodes[307],
-    target: nodes[195]
+    "source": nodes[307],
+    "target": nodes[195],
+    "source_names": "academic",
+    "target_names": "m3086o"
   },
   {
-    source: nodes[307],
-    target: nodes[196]
+    "source": nodes[307],
+    "target": nodes[196],
+    "source_names": "academic",
+    "target_names": "e6934t"
   },
   {
-    source: nodes[307],
-    target: nodes[197]
+    "source": nodes[307],
+    "target": nodes[197],
+    "source_names": "academic",
+    "target_names": "e7574j"
   },
   {
-    source: nodes[307],
-    target: nodes[198]
+    "source": nodes[307],
+    "target": nodes[198],
+    "source_names": "academic",
+    "target_names": "e7574j"
   },
   {
-    source: nodes[307],
-    target: nodes[199]
+    "source": nodes[307],
+    "target": nodes[199],
+    "source_names": "academic",
+    "target_names": "f3783s"
   },
   {
-    source: nodes[307],
-    target: nodes[200]
+    "source": nodes[307],
+    "target": nodes[200],
+    "source_names": "academic",
+    "target_names": "o5112h"
   },
   {
-    source: nodes[307],
-    target: nodes[201]
+    "source": nodes[307],
+    "target": nodes[201],
+    "source_names": "academic",
+    "target_names": "e6934t"
   },
   {
-    source: nodes[307],
-    target: nodes[202]
+    "source": nodes[307],
+    "target": nodes[202],
+    "source_names": "academic",
+    "target_names": "j3161r"
   },
   {
-    source: nodes[307],
-    target: nodes[203]
+    "source": nodes[307],
+    "target": nodes[203],
+    "source_names": "academic",
+    "target_names": "e7574j"
   },
   {
-    source: nodes[307],
-    target: nodes[204]
+    "source": nodes[307],
+    "target": nodes[204],
+    "source_names": "academic",
+    "target_names": "f6029y"
   },
   {
-    source: nodes[307],
-    target: nodes[205]
+    "source": nodes[307],
+    "target": nodes[205],
+    "source_names": "academic",
+    "target_names": "f6029y"
   },
   {
-    source: nodes[307],
-    target: nodes[206]
+    "source": nodes[307],
+    "target": nodes[206],
+    "source_names": "academic",
+    "target_names": "f3783s"
   },
   {
-    source: nodes[307],
-    target: nodes[207]
+    "source": nodes[307],
+    "target": nodes[207],
+    "source_names": "academic",
+    "target_names": "e6934t"
   },
   {
-    source: nodes[307],
-    target: nodes[208]
+    "source": nodes[307],
+    "target": nodes[208],
+    "source_names": "academic",
+    "target_names": "o5112h"
   },
   {
-    source: nodes[307],
-    target: nodes[209]
+    "source": nodes[307],
+    "target": nodes[209],
+    "source_names": "academic",
+    "target_names": "b4407n"
   },
   {
-    source: nodes[307],
-    target: nodes[210]
+    "source": nodes[307],
+    "target": nodes[210],
+    "source_names": "academic",
+    "target_names": "f6029y"
   },
   {
-    source: nodes[307],
-    target: nodes[211]
+    "source": nodes[307],
+    "target": nodes[211],
+    "source_names": "academic",
+    "target_names": "o5112h"
   },
   {
-    source: nodes[307],
-    target: nodes[212]
+    "source": nodes[307],
+    "target": nodes[212],
+    "source_names": "academic",
+    "target_names": "o5112h"
   },
   {
-    source: nodes[307],
-    target: nodes[213]
+    "source": nodes[307],
+    "target": nodes[213],
+    "source_names": "academic",
+    "target_names": "o5112h"
   },
   {
-    source: nodes[307],
-    target: nodes[214]
+    "source": nodes[307],
+    "target": nodes[214],
+    "source_names": "academic",
+    "target_names": "m3086o"
   },
   {
-    source: nodes[307],
-    target: nodes[215]
+    "source": nodes[307],
+    "target": nodes[215],
+    "source_names": "academic",
+    "target_names": "j3161r"
   },
   {
-    source: nodes[307],
-    target: nodes[216]
+    "source": nodes[307],
+    "target": nodes[216],
+    "source_names": "academic",
+    "target_names": "m6462t"
   },
   {
-    source: nodes[307],
-    target: nodes[217]
+    "source": nodes[307],
+    "target": nodes[217],
+    "source_names": "academic",
+    "target_names": "h6689r"
   },
   {
-    source: nodes[307],
-    target: nodes[218]
+    "source": nodes[307],
+    "target": nodes[218],
+    "source_names": "academic",
+    "target_names": "o5112h"
   },
   {
-    source: nodes[307],
-    target: nodes[219]
+    "source": nodes[307],
+    "target": nodes[219],
+    "source_names": "academic",
+    "target_names": "e6934t"
   },
   {
-    source: nodes[307],
-    target: nodes[220]
+    "source": nodes[307],
+    "target": nodes[220],
+    "source_names": "academic",
+    "target_names": "j3161r"
   },
   {
-    source: nodes[307],
-    target: nodes[221]
+    "source": nodes[307],
+    "target": nodes[221],
+    "source_names": "academic",
+    "target_names": "m3086o"
   },
   {
-    source: nodes[307],
-    target: nodes[222]
+    "source": nodes[307],
+    "target": nodes[222],
+    "source_names": "academic",
+    "target_names": "m6462t"
   },
   {
-    source: nodes[306],
-    target: nodes[223]
+    "source": nodes[306],
+    "target": nodes[223],
+    "source_names": "community",
+    "target_names": "y2673w"
   },
   {
-    source: nodes[306],
-    target: nodes[224]
+    "source": nodes[306],
+    "target": nodes[224],
+    "source_names": "community",
+    "target_names": "b3888w"
   },
   {
-    source: nodes[306],
-    target: nodes[225]
+    "source": nodes[306],
+    "target": nodes[225],
+    "source_names": "community",
+    "target_names": "y2673w"
   },
   {
-    source: nodes[306],
-    target: nodes[226]
+    "source": nodes[306],
+    "target": nodes[226],
+    "source_names": "community",
+    "target_names": "a8749y"
   },
   {
-    source: nodes[306],
-    target: nodes[227]
+    "source": nodes[306],
+    "target": nodes[227],
+    "source_names": "community",
+    "target_names": "y2673w"
   },
   {
-    source: nodes[306],
-    target: nodes[228]
+    "source": nodes[306],
+    "target": nodes[228],
+    "source_names": "community",
+    "target_names": "j6872h"
   },
   {
-    source: nodes[306],
-    target: nodes[229]
+    "source": nodes[306],
+    "target": nodes[229],
+    "source_names": "community",
+    "target_names": "b3888w"
   },
   {
-    source: nodes[306],
-    target: nodes[230]
+    "source": nodes[306],
+    "target": nodes[230],
+    "source_names": "community",
+    "target_names": "b3888w"
   },
   {
-    source: nodes[306],
-    target: nodes[231]
+    "source": nodes[306],
+    "target": nodes[231],
+    "source_names": "community",
+    "target_names": "d7256f"
   },
   {
-    source: nodes[306],
-    target: nodes[232]
+    "source": nodes[306],
+    "target": nodes[232],
+    "source_names": "community",
+    "target_names": "h9993d"
   },
   {
-    source: nodes[306],
-    target: nodes[233]
+    "source": nodes[306],
+    "target": nodes[233],
+    "source_names": "community",
+    "target_names": "h9993d"
   },
   {
-    source: nodes[306],
-    target: nodes[234]
+    "source": nodes[306],
+    "target": nodes[234],
+    "source_names": "community",
+    "target_names": "h9993d"
   },
   {
-    source: nodes[306],
-    target: nodes[235]
+    "source": nodes[306],
+    "target": nodes[235],
+    "source_names": "community",
+    "target_names": "h9993d"
   },
   {
-    source: nodes[306],
-    target: nodes[236]
+    "source": nodes[306],
+    "target": nodes[236],
+    "source_names": "community",
+    "target_names": "h9993d"
   },
   {
-    source: nodes[306],
-    target: nodes[237]
+    "source": nodes[306],
+    "target": nodes[237],
+    "source_names": "community",
+    "target_names": "h9993d"
   },
   {
-    source: nodes[306],
-    target: nodes[238]
+    "source": nodes[306],
+    "target": nodes[238],
+    "source_names": "community",
+    "target_names": "d7256f"
   },
   {
-    source: nodes[306],
-    target: nodes[239]
+    "source": nodes[306],
+    "target": nodes[239],
+    "source_names": "community",
+    "target_names": "d7256f"
   },
   {
-    source: nodes[306],
-    target: nodes[240]
+    "source": nodes[306],
+    "target": nodes[240],
+    "source_names": "community",
+    "target_names": "j6872h"
   },
   {
-    source: nodes[306],
-    target: nodes[241]
+    "source": nodes[306],
+    "target": nodes[241],
+    "source_names": "community",
+    "target_names": "j6872h"
   },
   {
-    source: nodes[306],
-    target: nodes[242]
+    "source": nodes[306],
+    "target": nodes[242],
+    "source_names": "community",
+    "target_names": "q5415c"
   },
   {
-    source: nodes[306],
-    target: nodes[243]
+    "source": nodes[306],
+    "target": nodes[243],
+    "source_names": "community",
+    "target_names": "h9993d"
   },
   {
-    source: nodes[306],
-    target: nodes[244]
+    "source": nodes[306],
+    "target": nodes[244],
+    "source_names": "community",
+    "target_names": "x7136w"
   },
   {
-    source: nodes[306],
-    target: nodes[245]
+    "source": nodes[306],
+    "target": nodes[245],
+    "source_names": "community",
+    "target_names": "e3717l"
   },
   {
-    source: nodes[306],
-    target: nodes[246]
+    "source": nodes[306],
+    "target": nodes[246],
+    "source_names": "community",
+    "target_names": "x7136w"
   },
   {
-    source: nodes[306],
-    target: nodes[247]
+    "source": nodes[306],
+    "target": nodes[247],
+    "source_names": "community",
+    "target_names": "x7136w"
   },
   {
-    source: nodes[306],
-    target: nodes[248]
+    "source": nodes[306],
+    "target": nodes[248],
+    "source_names": "community",
+    "target_names": "x7136w"
   },
   {
-    source: nodes[306],
-    target: nodes[249]
+    "source": nodes[306],
+    "target": nodes[249],
+    "source_names": "community",
+    "target_names": "k5546z"
   },
   {
-    source: nodes[306],
-    target: nodes[250]
+    "source": nodes[306],
+    "target": nodes[250],
+    "source_names": "community",
+    "target_names": "e3717l"
   },
   {
-    source: nodes[306],
-    target: nodes[251]
+    "source": nodes[306],
+    "target": nodes[251],
+    "source_names": "community",
+    "target_names": "k5546z"
   },
   {
-    source: nodes[306],
-    target: nodes[252]
+    "source": nodes[306],
+    "target": nodes[252],
+    "source_names": "community",
+    "target_names": "e3717l"
   },
   {
-    source: nodes[306],
-    target: nodes[253]
+    "source": nodes[306],
+    "target": nodes[253],
+    "source_names": "community",
+    "target_names": "k5546z"
   },
   {
-    source: nodes[306],
-    target: nodes[254]
+    "source": nodes[306],
+    "target": nodes[254],
+    "source_names": "community",
+    "target_names": "k5546z"
   },
   {
-    source: nodes[306],
-    target: nodes[255]
+    "source": nodes[306],
+    "target": nodes[255],
+    "source_names": "community",
+    "target_names": "k5546z"
   },
   {
-    source: nodes[306],
-    target: nodes[256]
+    "source": nodes[306],
+    "target": nodes[256],
+    "source_names": "community",
+    "target_names": "g7173d"
   },
   {
-    source: nodes[306],
-    target: nodes[257]
+    "source": nodes[306],
+    "target": nodes[257],
+    "source_names": "community",
+    "target_names": "d8454u"
   },
   {
-    source: nodes[306],
-    target: nodes[258]
+    "source": nodes[306],
+    "target": nodes[258],
+    "source_names": "community",
+    "target_names": "d8454u"
   },
   {
-    source: nodes[306],
-    target: nodes[259]
+    "source": nodes[306],
+    "target": nodes[259],
+    "source_names": "community",
+    "target_names": "f9262c"
   },
   {
-    source: nodes[306],
-    target: nodes[260]
+    "source": nodes[306],
+    "target": nodes[260],
+    "source_names": "community",
+    "target_names": "g7173d"
   },
   {
-    source: nodes[306],
-    target: nodes[261]
+    "source": nodes[306],
+    "target": nodes[261],
+    "source_names": "community",
+    "target_names": "o3158y"
   },
   {
-    source: nodes[306],
-    target: nodes[262]
+    "source": nodes[306],
+    "target": nodes[262],
+    "source_names": "community",
+    "target_names": "o3158y"
   },
   {
-    source: nodes[306],
-    target: nodes[263]
+    "source": nodes[306],
+    "target": nodes[263],
+    "source_names": "community",
+    "target_names": "s9205g"
   },
   {
-    source: nodes[306],
-    target: nodes[264]
+    "source": nodes[306],
+    "target": nodes[264],
+    "source_names": "community",
+    "target_names": "h6556f"
   },
   {
-    source: nodes[306],
-    target: nodes[265]
+    "source": nodes[306],
+    "target": nodes[265],
+    "source_names": "community",
+    "target_names": "l2360d"
   },
   {
-    source: nodes[306],
-    target: nodes[266]
+    "source": nodes[306],
+    "target": nodes[266],
+    "source_names": "community",
+    "target_names": "f9262c"
   },
   {
-    source: nodes[306],
-    target: nodes[267]
+    "source": nodes[306],
+    "target": nodes[267],
+    "source_names": "community",
+    "target_names": "d8454u"
   },
   {
-    source: nodes[306],
-    target: nodes[268]
+    "source": nodes[306],
+    "target": nodes[268],
+    "source_names": "community",
+    "target_names": "l4243i"
   },
   {
-    source: nodes[306],
-    target: nodes[269]
+    "source": nodes[306],
+    "target": nodes[269],
+    "source_names": "community",
+    "target_names": "r5827i"
   },
   {
-    source: nodes[306],
-    target: nodes[270]
+    "source": nodes[306],
+    "target": nodes[270],
+    "source_names": "community",
+    "target_names": "h6556f"
   },
   {
-    source: nodes[306],
-    target: nodes[271]
+    "source": nodes[306],
+    "target": nodes[271],
+    "source_names": "community",
+    "target_names": "h6556f"
   },
   {
-    source: nodes[306],
-    target: nodes[272]
+    "source": nodes[306],
+    "target": nodes[272],
+    "source_names": "community",
+    "target_names": "h6556f"
   },
   {
-    source: nodes[306],
-    target: nodes[273]
+    "source": nodes[306],
+    "target": nodes[273],
+    "source_names": "community",
+    "target_names": "d8454u"
   },
   {
-    source: nodes[306],
-    target: nodes[274]
+    "source": nodes[306],
+    "target": nodes[274],
+    "source_names": "community",
+    "target_names": "l4243i"
   },
   {
-    source: nodes[306],
-    target: nodes[275]
+    "source": nodes[306],
+    "target": nodes[275],
+    "source_names": "community",
+    "target_names": "u4176p"
   },
   {
-    source: nodes[306],
-    target: nodes[276]
+    "source": nodes[306],
+    "target": nodes[276],
+    "source_names": "community",
+    "target_names": "h6556f"
   },
   {
-    source: nodes[306],
-    target: nodes[277]
+    "source": nodes[306],
+    "target": nodes[277],
+    "source_names": "community",
+    "target_names": "w9986a"
   },
   {
-    source: nodes[306],
-    target: nodes[278]
+    "source": nodes[306],
+    "target": nodes[278],
+    "source_names": "community",
+    "target_names": "p3901e"
   },
   {
-    source: nodes[306],
-    target: nodes[279]
+    "source": nodes[306],
+    "target": nodes[279],
+    "source_names": "community",
+    "target_names": "o3158y"
   },
   {
-    source: nodes[306],
-    target: nodes[280]
+    "source": nodes[306],
+    "target": nodes[280],
+    "source_names": "community",
+    "target_names": "f9262c"
   },
   {
-    source: nodes[306],
-    target: nodes[281]
+    "source": nodes[306],
+    "target": nodes[281],
+    "source_names": "community",
+    "target_names": "h4326u"
   },
   {
-    source: nodes[306],
-    target: nodes[282]
+    "source": nodes[306],
+    "target": nodes[282],
+    "source_names": "community",
+    "target_names": "r5827i"
   },
   {
-    source: nodes[306],
-    target: nodes[283]
+    "source": nodes[306],
+    "target": nodes[283],
+    "source_names": "community",
+    "target_names": "r5827i"
   },
   {
-    source: nodes[306],
-    target: nodes[284]
+    "source": nodes[306],
+    "target": nodes[284],
+    "source_names": "community",
+    "target_names": "s8156a"
   },
   {
-    source: nodes[306],
-    target: nodes[285]
+    "source": nodes[306],
+    "target": nodes[285],
+    "source_names": "community",
+    "target_names": "h5231b"
   },
   {
-    source: nodes[306],
-    target: nodes[286]
+    "source": nodes[306],
+    "target": nodes[286],
+    "source_names": "community",
+    "target_names": "r5827i"
   },
   {
-    source: nodes[306],
-    target: nodes[287]
+    "source": nodes[306],
+    "target": nodes[287],
+    "source_names": "community",
+    "target_names": "w9986a"
   },
   {
-    source: nodes[306],
-    target: nodes[288]
+    "source": nodes[306],
+    "target": nodes[288],
+    "source_names": "community",
+    "target_names": "r5827i"
   },
   {
-    source: nodes[306],
-    target: nodes[289]
+    "source": nodes[306],
+    "target": nodes[289],
+    "source_names": "community",
+    "target_names": "s8156a"
   },
   {
-    source: nodes[306],
-    target: nodes[290]
+    "source": nodes[306],
+    "target": nodes[290],
+    "source_names": "community",
+    "target_names": "r5827i"
   },
   {
-    source: nodes[306],
-    target: nodes[291]
+    "source": nodes[306],
+    "target": nodes[291],
+    "source_names": "community",
+    "target_names": "h5231b"
   },
   {
-    source: nodes[306],
-    target: nodes[292]
+    "source": nodes[306],
+    "target": nodes[292],
+    "source_names": "community",
+    "target_names": "r5827i"
   },
   {
-    source: nodes[306],
-    target: nodes[293]
+    "source": nodes[306],
+    "target": nodes[293],
+    "source_names": "community",
+    "target_names": "r5827i"
   },
   {
-    source: nodes[306],
-    target: nodes[294]
+    "source": nodes[306],
+    "target": nodes[294],
+    "source_names": "community",
+    "target_names": "p3901e"
   },
   {
-    source: nodes[306],
-    target: nodes[295]
+    "source": nodes[306],
+    "target": nodes[295],
+    "source_names": "community",
+    "target_names": "r5827i"
   },
   {
-    source: nodes[306],
-    target: nodes[296]
+    "source": nodes[306],
+    "target": nodes[296],
+    "source_names": "community",
+    "target_names": "h5231b"
   },
   {
-    source: nodes[306],
-    target: nodes[297]
+    "source": nodes[306],
+    "target": nodes[297],
+    "source_names": "community",
+    "target_names": "p3901e"
   },
   {
-    source: nodes[306],
-    target: nodes[298]
+    "source": nodes[306],
+    "target": nodes[298],
+    "source_names": "community",
+    "target_names": "h5231b"
   },
   {
-    source: nodes[306],
-    target: nodes[299]
+    "source": nodes[306],
+    "target": nodes[299],
+    "source_names": "community",
+    "target_names": "s8156a"
   },
   {
-    source: nodes[306],
-    target: nodes[300]
+    "source": nodes[306],
+    "target": nodes[300],
+    "source_names": "community",
+    "target_names": "w9986a"
   },
   {
-    source: nodes[306],
-    target: nodes[301]
+    "source": nodes[306],
+    "target": nodes[301],
+    "source_names": "community",
+    "target_names": "h5231b"
   },
   {
-    source: nodes[306],
-    target: nodes[302]
+    "source": nodes[306],
+    "target": nodes[302],
+    "source_names": "community",
+    "target_names": "r5827i"
   },
   {
-    source: nodes[306],
-    target: nodes[303]
+    "source": nodes[306],
+    "target": nodes[303],
+    "source_names": "community",
+    "target_names": "s8156a"
   }
 ];
 
 
+  // Initialize the info display.
+  //#info - hashtag looks for a place in the html by id, then it will place the text in that spot on the page
+  var info = d3.select("#info")
+      .text(defaultInfo = "Hover over links or nodes to get information");
 
 
-//Single vector graphic (svg) is the use of polygons to represent images in computer graphics rather than pixels. The code below defines an svg within the body section of the html. Then, an svg called g is defined within that with a height and width half that of the h and w defined at the top                                                                        
-var svg = d3.select("body").append("svg")
+//Single vector graphic (svg) is the use of polygons to represent images in computer graphics rather than pixels. 
+//The code below defines an svg within the body section of the html. Then, an svg called g is defined within that 
+//with a height and width half that of the h and w defined at the top 
+//We replaced body with #viz so instead of putting the plot into body (which is an element type and doesn't need a #
+//We places it in the element tag #viz. We used div to create two outputs in body: info and viz
+var svg = d3.select("#viz").append("svg")
 .attr("width", width)
 .attr("height", height)
 .append("g")
@@ -4909,26 +7062,57 @@ var svg = d3.select("body").append("svg")
     .attr("x1", radius.range()[0])
     .attr("x2", radius.range()[1]);
 
+//Draw the links
     svg.selectAll(".link")
 .data(links)
     .enter().append("path")
     .attr("class", "link")
     .attr("d", d3.hive.link()
-            .angle(function(d) { return angle(d.x); })
+            .angle(function(d) {console.log(d); return angle(d.x); })
             .radius(function(d) { return radius(d.y); }))
-    .style("stroke", function(d) { return color(d.source.x); });
+    //.style("stroke", function(d) { return color(d.source.x); })
+    .on("mouseover", linkMouseover)
+    .on("mouseout", mouseout);
 
+// Draw the nodes. Note that each node can have up to two connectors,
+ // representing the source (outgoing) and target (incoming) links.
     svg.selectAll(".node")
 .data(nodes)
     .enter().append("circle")
     .attr("class", "node")
     .attr("transform", function(d) { return "rotate(" + degrees(angle(d.x)) + ")"; })
     .attr("cx", function(d) { return radius(d.y); })
-    .attr("r", 5)
-    .style("fill", function(d) { return color(d.x); });
+    .attr("r", 4)
+    .style("fill", function(d) { return color(d.x); })
+    .on("mouseover", nodeMouseover)
+    .on("mouseout", mouseout);
 
     function degrees(radians) {
         return radians / Math.PI * 180 - 90;
     }
+
+  // Highlight the link and connected nodes on mouseover.
+  function linkMouseover(d) {
+    svg.selectAll(".link").classed("active", function(p) { return p === d; });
+    svg.selectAll("circle").classed("active", function(p) { 
+        if (p.node_names == d.source_names){
+            console.log(p.node_names);
+        }
+        return p.node_names === d.source_names || p.node_names === d.target_names; });
+    info.text(d.source_names + " → " + d.target_names);
+  }
+
+  // Highlight the node and connected links on mouseover.
+  function nodeMouseover(d) {
+    svg.selectAll(".link").classed("active", function(p) { return p.node_names === d.node_names; });
+    d3.select(this).classed("active", true);
+    info.text(d.node_names);
+  }
+
+  // Clear any highlighted nodes or links.
+  function mouseout() {
+    svg.selectAll(".active").classed("active", false);
+    info.text(defaultInfo);
+  }
 
     </script>
